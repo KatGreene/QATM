@@ -25,7 +25,7 @@ from bpy.props import CollectionProperty
 bl_info = {
     "name": "QATM",
     "author": "绿毛猫KatGreene",
-    "version": (0, 3, 1),
+    "version": (0, 4),
     "blender": (3, 6, 0),
     "location": "View3D > Toolbar",
     "description": "Quick Apply Tagged Material 快速应用含同名材质",

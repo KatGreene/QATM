@@ -68,8 +68,6 @@ class QATM_PT_keyword_subpanel(Panel):
             col.prop(item, "name", text="")
             row = col.row(align=True)
             row.operator("material.copy_material_of_keyword", icon='CHECKMARK', text="应用含此关键词的材质")
-            row = layout.row()
-            row.operator("material.copy_material_of_keyword", icon='ADD', text="加载内置关键词")
 
 
 class QATM_PT_custom_panel02(bpy.types.Panel):
