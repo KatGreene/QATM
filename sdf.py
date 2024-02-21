@@ -10,10 +10,11 @@ from . import functions as func
 
 # 装载SDF空物体
 class QATM_OT_AttachEmptyObject(bpy.types.Operator):
-    """创建一个自定义操作符类，用来执行父级设置操作"""
+    """装载SDF空物体"""
     bl_idname = "object.attach_empty_object"
-    bl_label = "装载空物体到骨骼"
+    bl_label = "装载SDF空物体"
     bl_options = {'REGISTER', 'UNDO'}
+    bl_description = "为选中骨架装载对应SDF系统的空物体"
 
     def execute(self, context):
         # 获取当前场景和空物体
@@ -104,10 +105,11 @@ class QATM_OT_AttachEmptyObject(bpy.types.Operator):
 
 # 卸载SDF空物体
 class QATM_OT_DetachEmptyObject(bpy.types.Operator):
-    """创建一个自定义操作符类，用来执行父级设置操作"""
+    """卸载SDF空物体"""
     bl_idname = "object.detach_empty_object"
-    bl_label = "卸载空物体到骨骼"
+    bl_label = "卸载SDF空物体"
     bl_options = {'REGISTER', 'UNDO'}
+    bl_description = "清空选中骨架子级内的空物体"
 
     def execute(self, context):
         # 获取当前场景和空物体
@@ -148,10 +150,11 @@ class QATM_OT_DetachEmptyObject(bpy.types.Operator):
 
 # 新的SDF系统
 class QATM_OT_AddNewSDF(bpy.types.Operator):
-    """创建一个自定义操作符类，用来执行父级设置操作"""
+    """添加新的SDF系统"""
     bl_idname = "object.add_new_sdf"
     bl_label = "添加新的SDF系统"
     bl_options = {'REGISTER', 'UNDO'}
+    bl_description = "为场景内新增一个独立的SDF系统"
 
     def execute(self, context):
 
@@ -167,10 +170,11 @@ class QATM_OT_AddNewSDF(bpy.types.Operator):
 
 # 统一所有日光的旋转
 class QATM_OT_UnifySunlightRotation(bpy.types.Operator):
-    """统一所有驱动SDF的日光的旋转"""
+    """统一日光旋转"""
     bl_idname = "qatm.unify_sunlight_rotation"
     bl_label = "统一日光旋转"
     bl_options = {'REGISTER', 'UNDO'}
+    bl_description = "统一所有驱动SDF的日光的旋转"
 
     def execute(self, context):
         # 找到名称为 'QATM_Sunlight' 的空物体
@@ -195,10 +199,11 @@ class QATM_OT_UnifySunlightRotation(bpy.types.Operator):
     
 
 class QATM_OT_AddNormalFix(bpy.types.Operator):
-    """添加法线编辑修改器"""
+    """添加法线修复"""
     bl_idname = "qatm.add_normal_fix"
     bl_label = "添加法线修复"
     bl_options = {'REGISTER', 'UNDO'}
+    bl_description = "添加法线编辑修改器"
 
     def execute(self, context):
         func.qatm_add_normal_fix()

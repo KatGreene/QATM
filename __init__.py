@@ -87,6 +87,7 @@ properties = [
     ("sdf_tool", bpy.props.PointerProperty(type=cls.CustomIntProperties)),
     ("keyword_list_index", bpy.props.IntProperty(name="自定义关键词", default=0, min=0)),
     ("suffix", bpy.props.StringProperty(name="Suffix", default="")),
+    ("source_armature", bpy.props.StringProperty(name="选中骨架"))
     
 ]
 
@@ -97,7 +98,6 @@ def register():
     for prop_name, prop_value in properties:
         setattr(bpy.types.Scene, prop_name, prop_value)
 
-    bpy.types.Scene.source_armature = bpy.props.StringProperty()
 
 def unregister():
     for cls in reversed(classes):
@@ -106,7 +106,6 @@ def unregister():
     for prop_name, _ in properties:
         delattr(bpy.types.Scene, prop_name)
 
-    del bpy.types.Scene.source_armature
 
 if __name__ == "__main__":
     register()
