@@ -38,13 +38,6 @@ bl_info = {
 
 
 classes = (
-    cls.QATM_OT_copy_material_01Skin,
-    cls.QATM_OT_copy_material_02Hair,
-    cls.QATM_OT_copy_material_03CloS,
-    cls.QATM_OT_copy_material_04CloR,
-    cls.QATM_OT_copy_material_05Metl,
-    cls.QATM_OT_copy_material_06Eyes,
-    cls.QATM_OT_copy_material_07Stks,
     cls.QATM_OT_copy_material_of_keyword,
 
     cls.TOOL_OT_SetBrush,
