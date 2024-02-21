@@ -5,8 +5,8 @@
 
 
 import bpy
-
 from bpy.types import Panel
+
 
 ###UI界面
 class QATM_PT_custom_panel(bpy.types.Panel):
@@ -33,35 +33,7 @@ class QATM_PT_custom_panel(bpy.types.Panel):
         row.label(text="应用后选中源物体")
         row = box.row()
         row.prop(scene.material_link_settings, "link_objects_with_mat", text="",  icon="PRESET_NEW", toggle=True)
-        row.label(text="关联选择同材质物体")
-        
-            
-class QATM_PT_custom_default_subpanel(bpy.types.Panel):
-    bl_label = "内置关键词"
-    bl_parent_id = "QATM_PT_custom_panel"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = 'QATM'
-
-    def draw(self, context):
-        layout = self.layout
-        scene = context.scene
-        
-        layout.use_property_split = False
-        layout.use_property_decorate = False
-
-        box = layout.box()
-        row = box.row(align=True)
-        row.operator("material.copy_material_01skin", icon="SHADING_SOLID", text="01Skin")
-        row.operator("material.copy_material_02hair", icon="MATSPHERE", text="02Hair")  
-        row = box.row(align=True) 
-        row.operator("material.copy_material_03clos", icon="SHADING_RENDERED")
-        row.operator("material.copy_material_04clor", icon="SHADING_TEXTURE")
-        row = box.row(align=True) 
-        row.operator("material.copy_material_05metl", icon="NODE_MATERIAL")
-        row.operator("material.copy_material_06eyes", icon="ANTIALIASED")
-        row = box.row(align=True) 
-        row.operator("material.copy_material_07stks", icon="PROP_ON")
+        row.label(text="关联选择同材质物体")                 
         
 
 class QATM_PT_keyword_subpanel(Panel):

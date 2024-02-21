@@ -19,8 +19,8 @@ import bpy
 from . import classes as cls
 from . import ui
 from . import sdf
-
 from bpy.props import CollectionProperty
+
 
 bl_info = {
     "name": "QATM",
@@ -78,7 +78,6 @@ classes = (
 
     ui.QATM_PT_custom_panel,
     ui.QATM_PT_keyword_subpanel,
-    # ui.QATM_PT_custom_default_subpanel,
     ui.QATM_PT_custom_panel02,
     ui.QATM_PT_custom_subpanel01,
     ui.QATM_PT_custom_subpanel02,

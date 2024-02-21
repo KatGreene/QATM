@@ -176,42 +176,6 @@ class BaseCopyMaterialOperator(bpy.types.Operator):
         bpy.ops.ed.undo_push(message="QATM: 匹配材质")
         return {'FINISHED'}
 
-# 应用内置关键词的材质
-class QATM_OT_copy_material_01Skin(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_01skin"
-    bl_label = "01Skin 皮肤"
-    material_suffix = "01Skin"
-
-class QATM_OT_copy_material_02Hair(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_02hair"
-    bl_label = "02Hair 头发"
-    material_suffix = "02Hair"
-
-class QATM_OT_copy_material_03CloS(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_03clos"
-    bl_label = "03CloS 光滑衣物"
-    material_suffix = "03CloS"
-
-class QATM_OT_copy_material_04CloR(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_04clor"
-    bl_label = "04CloR 粗糙衣物"
-    material_suffix = "04CloR"
-
-class QATM_OT_copy_material_05Metl(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_05metl"
-    bl_label = "05Metl 金属"
-    material_suffix = "05Metl"
-
-class QATM_OT_copy_material_06Eyes(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_06eyes"
-    bl_label = "06Eyes 眼睛"
-    material_suffix = "06Eyes"
-
-class QATM_OT_copy_material_07Stks(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_07stks"
-    bl_label = "07Stks 丝袜"
-    material_suffix = "07Stks"
-
 # 应用列表中关键词的材质
 class QATM_OT_copy_material_of_keyword(BaseCopyMaterialOperator):
     bl_idname = "material.copy_material_of_keyword"

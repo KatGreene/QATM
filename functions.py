@@ -51,55 +51,6 @@ def check_scene_for_collection_name(collection_name):
     return check_collection_exists(master_collection, collection_name)
 
 
-def set_sdf_driver():
-    data_path = bpy.data.node_groups["SDF阴影_QATM"].nodes["合并 XYZ.019"].inputs[0].default_value
-
-    # 对象名
-    object_name = "Face_Forward"
-
-    # 变量名
-    variable_name = "Ax"
-
-    # 查找是否有匹配的物体
-    if object_name in bpy.data.objects:
-        face_forward_object = bpy.data.objects[object_name]
-    else:
-        print(f"未找到名为'{object_name}'的物体")
-        # 你可以选择在这里创建该物体，并继续，或退出脚本
-        # face_forward_object = bpy.data.objects.new(object_name, None)
-        # bpy.context.collection.objects.link(face_forward_object)
-        # 或者只是 raise some exception
-
-    # 获取驱动器
-    fcurve = None
-    # 注意：这段代码假设驱动位于某个特定的动画数据中，
-    # 比如场景、物体的动画数据等。如果不确定驱动位置，
-    # 需要检查所有可能含有驱动器的地方。
-    for f in bpy.data.actions[0].fcurves: 
-        if f.data_path == data_path:
-            fcurve = f
-            break
-
-    if fcurve is None:
-        print(f"在'{data_path}'路径下未找到带有驱动的属性")
-        # 如果这里找不到属性，你可以选择在此处创建驱动器
-        # 或者只是退出脚本
-
-    # 设置驱动器变量
-    driver = fcurve.driver
-    variable_found = False
-    for var in driver.variables:
-        if var.name == variable_name:
-            variable_found = True
-            # 在这里我们假设变量是单純的变换类型，如果不是，则需要进一步的逻辑来处理
-            var.targets[0].id = face_forward_object
-            print(f"变量'{variable_name}'的物体已经被设置为'{object_name}'")
-
-    if not variable_found:
-        print(f"找不到名为'{variable_name}'的变量")
-        # 在这里你可以选择添加这个变量，并设置它的类型和目标物体
-
-
 ### 加描边功能
 def add_outline_to_selected_objects():
     scene = bpy.context.scene
@@ -371,6 +322,4 @@ def qatm_add_normal_fix():
                 self.layout.label(text="已添加修改器 SDF系统ID:"+f"{sdf_system_id:03d}", icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
     bpy.context.window_manager.popup_menu(draw)
-
-
 
