@@ -5,6 +5,8 @@
 
 
 import bpy
+import os
+import subprocess
 from . import functions as func
 from . import sdf
 from bpy.props import StringProperty
@@ -405,3 +407,28 @@ class WM_OT_DeleteUnusedMaterialsByName(bpy.types.Operator):
         bpy.ops.ed.undo_push(message="QATM: 清理多余材质")
         return {'FINISHED'}
 
+
+# 打开pdf手册
+class QATM_OT_OpenManualPDF(bpy.types.Operator):
+    bl_idname = "qatm.open_manual_pdf"
+    bl_label = "查看手册"
+    bl_description = "打开并查看用户PDF使用手册"
+
+    def execute(self, context):
+        # 获取插件的文件路径（假设本操作文件与 'manual' 文件夹位于同一目录）
+        file_path = os.path.join(os.path.dirname(__file__), 'manual', 'manual_zh-CN.pdf')
+        
+        # 确保文件存在
+        if not os.path.isfile(file_path):
+            self.report({'ERROR'}, 'Manual PDF file is missing.')
+            return {'CANCELLED'}
+        
+        # 试图打开PDF文件，这里使用默认的PDF阅读器
+        if os.name == 'nt':  # Windows
+            os.startfile(file_path)
+        else:
+            opener = 'open' if sys.platform == 'darwin' else 'xdg-open'
+            subprocess.call([opener, file_path])
+
+        return {'FINISHED'}
+    

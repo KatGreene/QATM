@@ -15,6 +15,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
 import bpy
 from . import classes as cls
 from . import ui
@@ -68,6 +69,7 @@ classes = (
 
     cls.TOOL_OT_AddResourcesOutline,
     cls.TOOL_OT_AddResourcesAll,
+    cls.QATM_OT_OpenManualPDF,
 
     ui.QATM_PT_custom_panel,
     ui.QATM_PT_keyword_subpanel,
@@ -88,7 +90,6 @@ properties = [
     ("keyword_list_index", bpy.props.IntProperty(name="自定义关键词", default=0, min=0)),
     ("suffix", bpy.props.StringProperty(name="Suffix", default="")),
     ("source_armature", bpy.props.StringProperty(name="选中骨架"))
-    
 ]
 
 def register():
