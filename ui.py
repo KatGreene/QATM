@@ -7,38 +7,7 @@
 import bpy
 from bpy.types import Panel
 from bpy.app.translations import pgettext
-from . import translation as trans
-
-
-# ###UI界面
-# class QATM_PT_custom_panel(bpy.types.Panel):
-#     """创建一个在N键属性栏中的自定义面板"""
-#     bl_label = "QATM 快速应用含同名材质"
-#     bl_idname = "QATM_PT_custom_panel"
-#     bl_space_type = 'VIEW_3D'
-#     bl_region_type = 'UI'
-#     bl_category = 'QATM'
-    
-#     def draw(self, context):
-#         layout = self.layout
-#         scene = context.scene
-
-#         mat_assoc_props = scene.mat_association_props
-
-#         row = layout.row()
-#         row.label(text="指定优先搜索范围")
-#         row.operator("qatm.open_manual_pdf", icon='HELP', text="")
-#         row = layout.row()
-#         row.prop(mat_assoc_props, "collection")
-#         row = layout.row()
-#         row.operator("qatm.add_from_collection", icon='COLLECTION_NEW', text="导入集合内的材质名")
-#         box = layout.box()
-#         row = box.row()
-#         row.prop(scene.material_selection_settings, "select_objects_with_mat", text="",  icon="RESTRICT_SELECT_OFF", toggle=True)
-#         row.label(text="应用后选中源物体")
-#         row = box.row()
-#         row.prop(scene.material_link_settings, "link_objects_with_mat", text="",  icon="PRESET_NEW", toggle=True)
-        # row.label(text="关联选择同材质物体")      
+from . import translation as trans    
 
 
 # UI界面

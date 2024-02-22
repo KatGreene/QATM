@@ -18,7 +18,6 @@ translations_dict = {
         ("*", "选中词命名"): "Rename",
         ("*", "应用含此关键词的材质"): "Apply Selected",
     },
-
 }
 
 
@@ -28,5 +27,4 @@ def register():
 
 def unregister():
     bpy.app.translations.unregister(__name__)
-
 
