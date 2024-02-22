@@ -40,17 +40,7 @@ class QATM_PT_custom_panel(bpy.types.Panel):
         row.prop(scene.material_link_settings, "link_objects_with_mat", text="",  icon="PRESET_NEW", toggle=True)
         row.label(text=pgettext("关联选择同材质物体"))
         
-
-class QATM_PT_keyword_subpanel(Panel):
-    bl_label = pgettext("自定义关键词")
-    bl_parent_id = "QATM_PT_custom_panel"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = 'QATM'
-
-    def draw(self, context):
-        layout = self.layout
-        scene = context.scene
+        self.layout.label(text=pgettext("自定义关键词"))
 
         row = layout.row()
         row.template_list("KEYWORDS_UL_uilist", "The_List", scene, "keyword_list", scene, "keyword_list_index")
