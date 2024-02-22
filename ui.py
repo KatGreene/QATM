@@ -67,7 +67,7 @@ class QATM_PT_custom_panel(bpy.types.Panel):
 
 class QATM_PT_custom_panel02(bpy.types.Panel):
     """创建一个在N键属性栏中的自定义面板"""
-    bl_label = "QATM 附加功能"
+    bl_label = pgettext("QATM 附加功能")
     bl_idname = "QATM_PT_custom_panel02"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -77,14 +77,22 @@ class QATM_PT_custom_panel02(bpy.types.Panel):
         layout = self.layout
         scene = context.scene
 
+        self.update_label()
+
         row = layout.row()
-        row.label(text="追加预设工程中的全部资源")
+        row.label(text=pgettext("追加预设工程中的全部资源"))
         row.operator("tool.add_resources_all", text="", icon="FILE_BLEND")
+
+    def update_label(self):
+        if bpy.app.translations.locale in bpy.app.translations.locales:
+            locale = bpy.app.translations.locale
+            translated_label = pgettext("QATM 附加功能")
+            self.bl_label = translated_label
 
 
 class QATM_PT_custom_subpanel01(bpy.types.Panel):
     """创建一个在N键属性栏中的自定义面板"""
-    bl_label = "删除多余材质"
+    bl_label = pgettext("删除多余材质")
     bl_parent_id = "QATM_PT_custom_panel02"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -94,15 +102,23 @@ class QATM_PT_custom_subpanel01(bpy.types.Panel):
         layout = self.layout
         scene = context.scene
 
-        layout.label(text="仅删除含关键词的多余材质")
+        self.update_label()
+
+        layout.label(text=pgettext("仅删除含关键词的多余材质"))
         row = layout.row()
         row.scale_y = 1.5
-        button = row.operator("wm.delete_unused_materials_by_name", text="清理多余材质", icon="TRASH")
+        button = row.operator("wm.delete_unused_materials_by_name", text=pgettext("清理多余材质"), icon="TRASH")
+
+    def update_label(self):
+        if bpy.app.translations.locale in bpy.app.translations.locales:
+            locale = bpy.app.translations.locale
+            translated_label = pgettext("删除多余材质")
+            self.bl_label = translated_label
 
 
 class QATM_PT_custom_subpanel02(bpy.types.Panel):
     """创建一个在N键属性栏中的自定义面板"""
-    bl_label = "描边"
+    bl_label = pgettext("描边")
     bl_parent_id = "QATM_PT_custom_panel02"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -112,8 +128,10 @@ class QATM_PT_custom_subpanel02(bpy.types.Panel):
         layout = self.layout
         scene = context.scene
         
+        self.update_label()
+
         row = layout.row(align=True)
-        row.label(text="几何节点自适应描边")
+        row.label(text=pgettext("几何节点自适应描边"))
         row.prop(scene.material_link_settings, "link_objects_with_mat", text="",  icon="PRESET_NEW", toggle=True)
         row.operator("tool.set_brush_button", text="", icon="BRUSHES_ALL")
         row.operator("tool.add_resources_outline", text="", icon="FILE_BLANK")
@@ -121,19 +139,25 @@ class QATM_PT_custom_subpanel02(bpy.types.Panel):
         outline_mat_props = scene.outline_material_props
 
         box = layout.box()
-        box.label(text="指定描边设置", icon='PRESET')
+        box.label(text=pgettext("指定描边设置"), icon='PRESET')
         col = box.column()
-        col.prop(outline_mat_props, "outline_material", text="材质")
-        col.prop(outline_cam_props, "outline_camera", text="摄像机")
+        col.prop(outline_mat_props, "outline_material", text=pgettext("材质"))
+        col.prop(outline_cam_props, "outline_camera", text=pgettext("摄像机"))
         row = layout.row()
         row.scale_y = 1.5
-        button = row.operator("object.add_outline_button", text="添加描边", icon="ADD")
-        row.operator("wm.delete_geometry_nodes_by_name", text="删除描边", icon="X")
+        button = row.operator("object.add_outline_button", text=pgettext("添加描边"), icon="ADD")
+        row.operator("wm.delete_geometry_nodes_by_name", text=pgettext("删除描边"), icon="X")
+
+    def update_label(self):
+        if bpy.app.translations.locale in bpy.app.translations.locales:
+            locale = bpy.app.translations.locale
+            translated_label = pgettext("描边")
+            self.bl_label = translated_label
 
 
 class QATM_PT_custom_subpanel03(bpy.types.Panel):
     """创建一个自定义面板类"""
-    bl_label = "装载SDF空物体"
+    bl_label = pgettext("SDF工具")
     bl_parent_id = "QATM_PT_custom_panel02"
 
     bl_space_type = 'VIEW_3D'
@@ -146,20 +170,28 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
         
         sdf_tool = scene.sdf_tool
 
+        self.update_label()
+
         # 创建选择框
         box = layout.box()
         col = box.column()
-        col.prop_search(context.scene, "source_armature", bpy.data, "objects", text="骨架")
-        col.prop(sdf_tool, "sdf_system_id", text="SDF系统ID")
+        col.prop_search(context.scene, "source_armature", bpy.data, "objects", text=pgettext("骨架"))
+        col.prop(sdf_tool, "sdf_system_id", text=pgettext("SDF系统ID"))
         
         # 创建按钮
         row = layout.row()
         row.scale_y = 1.5
-        row.operator("object.attach_empty_object", text="装载空物体", icon="SORT_DESC")
-        row.operator("object.detach_empty_object", text="卸载空物体", icon="SORT_ASC")
+        row.operator("object.attach_empty_object", text=pgettext("装载空物体"), icon="SORT_DESC")
+        row.operator("object.detach_empty_object", text=pgettext("卸载空物体"), icon="SORT_ASC")
         row = layout.row(align=True)
-        row.operator("object.add_new_sdf", text="添加新的SDF系统", icon="ADD")
+        row.operator("object.add_new_sdf", text=pgettext("添加新的SDF系统"), icon="ADD")
         row.operator("qatm.unify_sunlight_rotation", text="", icon="LIGHT_SUN")
         row.operator("qatm.add_normal_fix", text="", icon="MOD_NORMALEDIT")        
+
+    def update_label(self):
+        if bpy.app.translations.locale in bpy.app.translations.locales:
+            locale = bpy.app.translations.locale
+            translated_label = pgettext("SDF工具")
+            self.bl_label = translated_label
         
         

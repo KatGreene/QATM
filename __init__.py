@@ -73,7 +73,6 @@ classes = (
     cls.QATM_OT_OpenManualPDF,
 
     ui.QATM_PT_custom_panel,
-    # ui.QATM_PT_keyword_subpanel,
     ui.QATM_PT_custom_panel02,
     ui.QATM_PT_custom_subpanel01,
     ui.QATM_PT_custom_subpanel02,
