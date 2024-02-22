@@ -20,6 +20,7 @@ import bpy
 from . import classes as cls
 from . import ui
 from . import sdf
+from . import translation as trans
 from bpy.props import CollectionProperty
 
 
@@ -92,6 +93,7 @@ properties = [
     ("source_armature", bpy.props.StringProperty(name="选中骨架"))
 ]
 
+
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
@@ -99,6 +101,8 @@ def register():
     for prop_name, prop_value in properties:
         setattr(bpy.types.Scene, prop_name, prop_value)
 
+    trans.register()
+    
 
 def unregister():
     for cls in reversed(classes):
@@ -106,6 +110,8 @@ def unregister():
 
     for prop_name, _ in properties:
         delattr(bpy.types.Scene, prop_name)
+
+    trans.unregister()
 
 
 if __name__ == "__main__":

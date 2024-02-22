@@ -6,12 +6,45 @@
 
 import bpy
 from bpy.types import Panel
+from bpy.app.translations import pgettext
+from . import translation as trans
 
 
-###UI界面
+# ###UI界面
+# class QATM_PT_custom_panel(bpy.types.Panel):
+#     """创建一个在N键属性栏中的自定义面板"""
+#     bl_label = "QATM 快速应用含同名材质"
+#     bl_idname = "QATM_PT_custom_panel"
+#     bl_space_type = 'VIEW_3D'
+#     bl_region_type = 'UI'
+#     bl_category = 'QATM'
+    
+#     def draw(self, context):
+#         layout = self.layout
+#         scene = context.scene
+
+#         mat_assoc_props = scene.mat_association_props
+
+#         row = layout.row()
+#         row.label(text="指定优先搜索范围")
+#         row.operator("qatm.open_manual_pdf", icon='HELP', text="")
+#         row = layout.row()
+#         row.prop(mat_assoc_props, "collection")
+#         row = layout.row()
+#         row.operator("qatm.add_from_collection", icon='COLLECTION_NEW', text="导入集合内的材质名")
+#         box = layout.box()
+#         row = box.row()
+#         row.prop(scene.material_selection_settings, "select_objects_with_mat", text="",  icon="RESTRICT_SELECT_OFF", toggle=True)
+#         row.label(text="应用后选中源物体")
+#         row = box.row()
+#         row.prop(scene.material_link_settings, "link_objects_with_mat", text="",  icon="PRESET_NEW", toggle=True)
+        # row.label(text="关联选择同材质物体")      
+
+
+# UI界面
 class QATM_PT_custom_panel(bpy.types.Panel):
     """创建一个在N键属性栏中的自定义面板"""
-    bl_label = "QATM 快速应用含同名材质"
+    bl_label = "QATM"
     bl_idname = "QATM_PT_custom_panel"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -24,23 +57,23 @@ class QATM_PT_custom_panel(bpy.types.Panel):
         mat_assoc_props = scene.mat_association_props
 
         row = layout.row()
-        row.label(text="指定优先搜索范围")
+        row.label(text=pgettext("指定优先搜索范围"))
         row.operator("qatm.open_manual_pdf", icon='HELP', text="")
         row = layout.row()
         row.prop(mat_assoc_props, "collection")
         row = layout.row()
-        row.operator("qatm.add_from_collection", icon='COLLECTION_NEW', text="导入集合内的材质名")
+        row.operator("qatm.add_from_collection", icon='COLLECTION_NEW', text=pgettext("导入集合内的材质名"))
         box = layout.box()
         row = box.row()
         row.prop(scene.material_selection_settings, "select_objects_with_mat", text="",  icon="RESTRICT_SELECT_OFF", toggle=True)
-        row.label(text="应用后选中源物体")
+        row.label(text=pgettext("应用后选中源物体"))
         row = box.row()
         row.prop(scene.material_link_settings, "link_objects_with_mat", text="",  icon="PRESET_NEW", toggle=True)
-        row.label(text="关联选择同材质物体")              
+        row.label(text=pgettext("关联选择同材质物体"))
         
 
 class QATM_PT_keyword_subpanel(Panel):
-    bl_label = "自定义关键词"
+    bl_label = pgettext("自定义关键词")
     bl_parent_id = "QATM_PT_custom_panel"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -65,12 +98,12 @@ class QATM_PT_keyword_subpanel(Panel):
         col.operator("qatm.clear_list", icon="TRASH", text="")
         
         if scene.keyword_list:
-            layout.label(text="选中词命名", icon="WORDWRAP_ON")
+            layout.label(text=pgettext("选中词命名"), icon="WORDWRAP_ON")
             item = scene.keyword_list[scene.keyword_list_index]
             col = layout.column(align=False)
             col.prop(item, "name", text="")
             row = col.row(align=True)
-            row.operator("material.copy_material_of_keyword", icon='CHECKMARK', text="应用含此关键词的材质")
+            row.operator("material.copy_material_of_keyword", icon='CHECKMARK', text=pgettext("应用含此关键词的材质"))
 
 
 class QATM_PT_custom_panel02(bpy.types.Panel):
