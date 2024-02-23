@@ -39,6 +39,8 @@ translations_dict = {
         ("*", "装载空物体"): "Attach",
         ("*", "卸载空物体"): "Detach",
         ("*", "添加新的SDF系统"): "Add New System",
+
+        ("*", "追加资源"): "Append Resources",
     },
 }
 

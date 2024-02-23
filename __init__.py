@@ -17,11 +17,13 @@
 
 
 import bpy
+import os
 from . import classes as cls
 from . import ui
 from . import sdf
 from . import translation as trans
 from bpy.props import CollectionProperty
+import gettext
 
 
 bl_info = {
@@ -92,6 +94,14 @@ properties = [
     ("source_armature", bpy.props.StringProperty(name="选中骨架"))
 ]
 
+# 构建存放英文翻译文件的文件夹路径
+locale_directory = os.path.join(os.path.dirname(__file__), 'locale', 'en', 'LC_MESSAGES')
+
+# 获取插件文件夹路径
+addon_path = os.path.dirname(__file__)
+
+# 获取本地化文件夹路径
+locales_dir = os.path.join(addon_path, "locale")
 
 def register():
     for cls in classes:
@@ -101,6 +111,7 @@ def register():
         setattr(bpy.types.Scene, prop_name, prop_value)
 
     trans.register()
+    # bpy.app.translations.register(__name__, translation_dict) # 注册你的翻译字典
     
 
 def unregister():

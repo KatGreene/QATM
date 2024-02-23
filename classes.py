@@ -8,15 +8,16 @@ import bpy
 import os
 import subprocess
 from . import functions as func
-from . import sdf
 from bpy.props import StringProperty
 from bpy.types import Operator, UIList, PropertyGroup
+from bpy.app.translations import pgettext
+from gettext import gettext
 
 
 class TOOL_OT_AddResourcesOutline(bpy.types.Operator):
     bl_idname = "tool.add_resources_outline"
-    bl_label = "追加资源"
-    bl_description = "追加描边节点组与描边材质"
+    bl_label = gettext("追加资源")
+    bl_description = gettext("追加描边节点组与描边材质")
 
     def execute(self, context):
 
@@ -27,23 +28,23 @@ class TOOL_OT_AddResourcesOutline(bpy.types.Operator):
             func.load_resources(["Collection/QATM_OutLine"])
 
             def draw(self, context):
-                self.layout.label(text="成功加载资源", icon='SEQUENCE_COLOR_03')
+                self.layout.label(text=gettext("成功加载资源"), icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
         else:
             def draw(self, context):
-                self.layout.label(text="未加载资源：该资源已加载过!", icon='SEQUENCE_COLOR_01')
+                self.layout.label(text=gettext("未加载资源：该资源已加载过!"), icon='SEQUENCE_COLOR_01')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
 
-        bpy.ops.ed.undo_push(message="QATM: 追加资源")
+        bpy.ops.ed.undo_push(message=pgettext(gettext("QATM: 追加资源")))
         return {'FINISHED'}
     
 
 class TOOL_OT_AddResourcesAll(bpy.types.Operator):
     bl_idname = "tool.add_resources_all"
-    bl_label = "手动追加全部资源"
-    bl_description = "追加预设工程中的全部节点组/材质/物体"
+    bl_label = gettext("手动追加全部资源")
+    bl_description = gettext("追加预设工程中的全部节点组/材质/物体")
 
     def execute(self, context):
 
@@ -57,16 +58,16 @@ class TOOL_OT_AddResourcesAll(bpy.types.Operator):
                 func.load_resources(["Collection/QATM_OutLine"])
 
             def draw(self, context):
-                self.layout.label(text="成功加载资源", icon='SEQUENCE_COLOR_03')
+                self.layout.label(text=gettext("成功加载资源"), icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
         else:
             def draw(self, context):
-                self.layout.label(text="未加载资源：该资源已加载过!", icon='SEQUENCE_COLOR_01')
+                self.layout.label(text=gettext("未加载资源：该资源已加载过!"), icon='SEQUENCE_COLOR_01')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
 
-        bpy.ops.ed.undo_push(message="QATM: 追加资源")
+        bpy.ops.ed.undo_push(message=gettext("QATM: 追加资源"))
         return {'FINISHED'}
 
 
