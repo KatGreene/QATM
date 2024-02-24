@@ -82,6 +82,9 @@ class QATM_PT_custom_panel02(bpy.types.Panel):
         row = layout.row()
         row.label(text=pgettext("追加预设工程中的全部资源"))
         row.operator("tool.add_resources_all", text="", icon="FILE_BLEND")
+        row = layout.row()
+        row.label(text=pgettext("设置材质驱动器"))
+        row.operator("qatm.add_drivers_button", text="", icon="DRIVER")
 
     def update_label(self):
         if bpy.app.translations.locale in bpy.app.translations.locales:

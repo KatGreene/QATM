@@ -40,7 +40,9 @@ translations_dict = {
         ("*", "卸载空物体"): "Detach",
         ("*", "添加新的SDF系统"): "Add New System",
 
-        ("*", "追加资源"): "Append Resources",
+        ("*", "追加资源/Append Resources"): "Append Resources",
+        ("*", "成功加载资源"): "Resources Loaded",
+        ("*", "未加载资源：该资源已加载过!"): "Failed: Resources Already Exists!",
     },
 }
 

@@ -55,11 +55,11 @@ def check_scene_for_collection_name(collection_name):
 def add_outline_to_selected_objects():
     scene = bpy.context.scene
     
-    outline_node_group = bpy.data.node_groups.get("000OutLine")
+    outline_node_group = bpy.data.node_groups.get("QATM_OutLine")
     # 检查名为"000OutLine"的节点组
     if not outline_node_group:
         load_resources(["Collection/QATM_OutLine"])
-        outline_node_group = bpy.data.node_groups.get("000OutLine")
+        outline_node_group = bpy.data.node_groups.get("QATM_OutLine")
         def draw(self, context):
                 self.layout.label(text="已自动加载描边资源", icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
@@ -72,13 +72,13 @@ def add_outline_to_selected_objects():
     outline_cam_props = scene.outline_camera_props
     camera_object = outline_cam_props.outline_camera
     if camera_object:
-        bpy.data.node_groups["000OutLine"].inputs[5].default_value = camera_object
+        bpy.data.node_groups["QATM_OutLine"].inputs[5].default_value = camera_object
 
     # 设置默认描边材质
     outline_mat_props = scene.outline_material_props
     outline_mat = outline_mat_props.outline_material
     if outline_mat:
-        bpy.data.node_groups["000OutLine"].inputs[3].default_value = outline_mat
+        bpy.data.node_groups["QATM_OutLine"].inputs[3].default_value = outline_mat
 
     # 获取是否关联选择同材质物体
     link_objects = scene.material_link_settings.link_objects_with_mat
@@ -90,7 +90,7 @@ def add_outline_to_selected_objects():
     for obj in selected_objects:
         if obj.type == 'MESH':  # 确保只处理网格类型的物体
             # 创建新的几何节点修改器
-            geo_node_mod = obj.modifiers.new(type="NODES", name="000OutLine")
+            geo_node_mod = obj.modifiers.new(type="NODES", name="QATM_OutLine")
 
             # 设置修改器的节点组为描边节点组
             geo_node_mod.node_group = outline_node_group
@@ -323,3 +323,69 @@ def qatm_add_normal_fix():
                 self.layout.label(text="")
     bpy.context.window_manager.popup_menu(draw)
 
+
+### 加材质驱动器功能
+def add_drivers_to_selected_objects():
+    scene = bpy.context.scene
+    
+    outline_node_group = bpy.data.node_groups.get("QATM_Drivers")
+    # 检查名为"QATM_Drivers"的节点组
+    if not outline_node_group:
+        load_resources(["Collection/QATM_Drivers"])
+        outline_node_group = bpy.data.node_groups.get("QATM_Drivers")
+        def draw(self, context):
+                self.layout.label(text="已自动加载驱动器资源", icon='SEQUENCE_COLOR_03')
+                self.layout.label(text="")
+        bpy.context.window_manager.popup_menu(draw)
+    
+    # 获取当前选择的所有物体
+    selected_objects = bpy.context.selected_objects
+
+    # 获取是否关联选择同材质物体
+    link_objects = scene.material_link_settings.link_objects_with_mat
+    if link_objects:
+        bpy.ops.object.select_linked(type='MATERIAL')
+        selected_objects = bpy.context.selected_objects
+
+    # 对所有选中的物体执行操作
+    for obj in selected_objects:
+        if obj.type == 'MESH':  # 确保只处理网格类型的物体
+            # 创建新的几何节点修改器
+            geo_node_mod = obj.modifiers.new(type="NODES", name="QATM_Drivers")
+
+            # 设置修改器的节点组为描边节点组
+            geo_node_mod.node_group = outline_node_group
+
+
+def select_objects_with_same_keyword():
+    # 当前选中的关键词列表
+    names_to_check = collect_keyword_names(bpy.context)
+
+    def check_materials(obj, keyword):
+        if obj.type == 'MESH':
+            for mat in obj.data.materials:
+                if keyword in mat.name:
+                    return True
+            return False
+
+    # 首先确保场景中至少有一个物体被选中
+    if bpy.context.selected_objects:
+        # 获取当前选中的物体
+        active_obj = bpy.context.active_object
+        # 存储匹配关键字的数组
+
+        # 假设所有选中的物体使用相同的材质作为检查标准
+        for mat in active_obj.data.materials:
+            names_to_check.append(mat.name)
+
+        # 取消选择所有物体
+        bpy.ops.object.select_all(action='DESELECT')
+
+        # 迭代场景中的所有物体，检查它们是否含有所需的材质
+        for obj in bpy.context.scene.objects:
+            for keyword in names_to_check:
+                if check_materials(obj, keyword):
+                    obj.select_set(True)
+                    # 设置选中物体为激活状态
+                    bpy.context.view_layer.objects.active = obj
+                    break  # 如果找到匹配的材质，跳出内层循环

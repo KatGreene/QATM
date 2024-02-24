@@ -46,6 +46,7 @@ classes = (
 
     cls.TOOL_OT_SetBrush,
     cls.OBJECT_OT_AddOutlineButton,  
+    cls.QATM_OT_AddDriversButton, 
     cls.WM_OT_DeleteUnusedMaterialsByName,
     cls.WM_OT_DeleteGeometryNodesByName,
 

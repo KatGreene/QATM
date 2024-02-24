@@ -16,7 +16,7 @@ from gettext import gettext
 
 class TOOL_OT_AddResourcesOutline(bpy.types.Operator):
     bl_idname = "tool.add_resources_outline"
-    bl_label = gettext("追加资源")
+    bl_label = pgettext("追加资源/Append Resources")
     bl_description = gettext("追加描边节点组与描边材质")
 
     def execute(self, context):
@@ -28,12 +28,12 @@ class TOOL_OT_AddResourcesOutline(bpy.types.Operator):
             func.load_resources(["Collection/QATM_OutLine"])
 
             def draw(self, context):
-                self.layout.label(text=gettext("成功加载资源"), icon='SEQUENCE_COLOR_03')
+                self.layout.label(text=pgettext("成功加载资源"), icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
         else:
             def draw(self, context):
-                self.layout.label(text=gettext("未加载资源：该资源已加载过!"), icon='SEQUENCE_COLOR_01')
+                self.layout.label(text=pgettext("未加载资源：该资源已加载过!"), icon='SEQUENCE_COLOR_01')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
 
@@ -58,12 +58,12 @@ class TOOL_OT_AddResourcesAll(bpy.types.Operator):
                 func.load_resources(["Collection/QATM_OutLine"])
 
             def draw(self, context):
-                self.layout.label(text=gettext("成功加载资源"), icon='SEQUENCE_COLOR_03')
+                self.layout.label(text=pgettext("成功加载资源"), icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
         else:
             def draw(self, context):
-                self.layout.label(text=gettext("未加载资源：该资源已加载过!"), icon='SEQUENCE_COLOR_01')
+                self.layout.label(text=pgettext("未加载资源：该资源已加载过!"), icon='SEQUENCE_COLOR_01')
                 self.layout.label(text="")
             bpy.context.window_manager.popup_menu(draw)
 
@@ -96,21 +96,31 @@ class TOOL_OT_SetBrush(bpy.types.Operator):
 class OBJECT_OT_AddOutlineButton(bpy.types.Operator):
     bl_idname = "object.add_outline_button"
     bl_label = "添加描边"
-    bl_description = "给选定的物体添加一个名为‘000OutLine’的几何节点组"
+    bl_description = "给选定的物体添加一个名为‘QATM_OutLine’的几何节点组"
 
     def execute(self, context):
         func.add_outline_to_selected_objects()
         return {'FINISHED'}
     
 
-# 操作类用于删除选中物体中名为"000OutLine"的几何节点修改器
-class WM_OT_DeleteGeometryNodesByName(bpy.types.Operator):
-    """删除选定的物体中名为'000OutLine'的几何节点修改器"""
-    bl_idname = "wm.delete_geometry_nodes_by_name"
-    bl_label = "删除'000OutLine'修改器"
+class QATM_OT_AddDriversButton(bpy.types.Operator):
+    bl_idname = "qatm.add_drivers_button"
+    bl_label = "添加描边"
+    bl_description = "给选定的物体添加一个名为‘QATM_Drivers’的几何节点组"
 
     def execute(self, context):
-        func.delete_geometry_node_modifiers("000OutLine")
+        func.add_drivers_to_selected_objects()
+        return {'FINISHED'}
+    
+
+# 操作类用于删除选中物体中名为"QATM_OutLine"的几何节点修改器
+class WM_OT_DeleteGeometryNodesByName(bpy.types.Operator):
+    """删除选定的物体中名为'QATM_OutLine'的几何节点修改器"""
+    bl_idname = "wm.delete_geometry_nodes_by_name"
+    bl_label = "删除'QATM_OutLine'修改器"
+
+    def execute(self, context):
+        func.delete_geometry_node_modifiers("QATM_OutLine")
         bpy.ops.ed.undo_push(message="QATM: 删除描边")
         return {'FINISHED'}
     
