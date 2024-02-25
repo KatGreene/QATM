@@ -90,6 +90,7 @@ class TOOL_OT_SetBrush(bpy.types.Operator):
     def execute(self, context):
         bpy.context.scene.tool_settings.unified_paint_settings.weight = 0
         bpy.data.brushes["Draw"].use_frontface = False
+        bpy.ops.ed.undo_push(message="QATM: 设置笔刷")
         return {'FINISHED'}
 
     
@@ -100,6 +101,7 @@ class OBJECT_OT_AddOutlineButton(bpy.types.Operator):
 
     def execute(self, context):
         func.add_outline_to_selected_objects()
+        bpy.ops.ed.undo_push(message="QATM: 添加描边")
         return {'FINISHED'}
     
 
@@ -110,6 +112,7 @@ class QATM_OT_AddDriversButton(bpy.types.Operator):
 
     def execute(self, context):
         func.add_drivers_to_selected_objects()
+        bpy.ops.ed.undo_push(message="QATM: 添加驱动")
         return {'FINISHED'}
     
 

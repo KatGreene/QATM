@@ -341,6 +341,25 @@ def add_drivers_to_selected_objects():
     # 获取当前选择的所有物体
     selected_objects = bpy.context.selected_objects
 
+    sdf_tool = scene.sdf_tool
+    sdf_system_id = sdf_tool.sdf_system_id
+
+    if sdf_system_id != 0:
+        face_forward_name = f"Face_Forward.{sdf_system_id:03d}"
+    else:
+        face_forward_name = "Face_Forward"
+
+    empty_object_face_forward = bpy.data.objects.get(face_forward_name)
+
+    if empty_object_face_forward is None:
+        bpy.ops.object.empty_add(type='PLAIN_AXES', align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
+        # 获取当前活动物体，即刚刚添加的空物体
+        empty_object_face_forward = bpy.context.active_object
+        # 设置空物体的名字
+        empty_object_face_forward.name = face_forward_name
+
+    bpy.data.node_groups["QATM_Drivers"].inputs[1].default_value = empty_object_face_forward
+
     # 获取是否关联选择同材质物体
     link_objects = scene.material_link_settings.link_objects_with_mat
     if link_objects:
