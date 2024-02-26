@@ -34,6 +34,7 @@ translations_dict = {
         ("*", "删除描边"): "Delete",
 
         ("*", "SDF工具"): "SDF Tools",
+        ("*", "为模型添加SDF驱动器"): "Add SDF Driver to Model",
         ("*", "骨架"): "Armature",
         ("*", "SDF系统ID"): "SDF System ID",
         ("*", "装载空物体"): "Attach",
@@ -43,6 +44,9 @@ translations_dict = {
         ("*", "追加资源/Append Resources"): "Append Resources",
         ("*", "成功加载资源"): "Resources Loaded",
         ("*", "未加载资源：该资源已加载过!"): "Failed: Resources Already Exists!",
+
+        ("*", "已清理 "): "Cleared ",
+        ("*", " 个材质"): " Unused Material(s)",
     },
 }
 

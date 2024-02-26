@@ -6,6 +6,7 @@
 
 import bpy
 import os
+from bpy.app.translations import pgettext
 
 
 ### 加载描边节点组
@@ -296,7 +297,7 @@ def delete_unused_materials_by_name(names):
                 remove_count += 1
 
     def draw(self, context):
-        self.layout.label(text="已清理"+f'{remove_count}'+"个材质", icon='SEQUENCE_COLOR_02')
+        self.layout.label(text=pgettext("已清理 ")+f'{remove_count}'+pgettext(" 个材质"), icon='SEQUENCE_COLOR_02')
         self.layout.label(text="")
     bpy.context.window_manager.popup_menu(draw)
 
