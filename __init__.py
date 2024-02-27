@@ -21,9 +21,9 @@ import os
 from . import classes as cls
 from . import ui
 from . import sdf
+from . import matControl
 from . import translation as trans
 from bpy.props import CollectionProperty
-import gettext
 
 
 bl_info = {
@@ -112,6 +112,7 @@ def register():
         setattr(bpy.types.Scene, prop_name, prop_value)
 
     trans.register()
+    matControl.register()
     # bpy.app.translations.register(__name__, translation_dict) # 注册你的翻译字典
     
 
@@ -123,6 +124,7 @@ def unregister():
         delattr(bpy.types.Scene, prop_name)
 
     trans.unregister()
+    matControl.unregister()
 
 
 if __name__ == "__main__":

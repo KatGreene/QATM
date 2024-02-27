@@ -409,3 +409,16 @@ def select_objects_with_same_keyword():
                     # 设置选中物体为激活状态
                     bpy.context.view_layer.objects.active = obj
                     break  # 如果找到匹配的材质，跳出内层循环
+
+
+# 定义用于隐藏灯光的函数
+def hide_dir_lights():
+
+    for obj in bpy.data.objects:
+        if obj.type == 'LIGHT':
+            if obj.name == "QATM_DirLight日光":
+                continue
+            elif "QATM" in obj.name:
+                obj.data.energy = 0 
+                obj.hide_viewport = True
+                obj.hide_render = True

@@ -47,6 +47,8 @@ translations_dict = {
 
         ("*", "已清理 "): "Cleared ",
         ("*", " 个材质"): " Unused Material(s)",
+
+        ("*", "设置亮度"): "Set Value",
     },
 }
 
