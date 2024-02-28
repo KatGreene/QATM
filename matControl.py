@@ -9,7 +9,7 @@ from bpy.app.translations import pgettext
 
 
 # 假设的标签数组
-qatm_labels = ["01", "02", "030405"]
+qatm_labels = ["01", "02", "0304", "05"]
 
 # 更新数值的函数
 def update_qatm(self, context, label):
@@ -17,7 +17,7 @@ def update_qatm(self, context, label):
     if mat is not None:
         # 检查是否存在节点群组实例，并且群组的名字是 "NodeGroup"（或其他你组的名字）
         for node in mat.node_tree.nodes:
-            if node.type == 'GROUP' and node.node_tree.name == "QATM_全局主亮度调节":
+            if node.type == 'GROUP' and node.node_tree.name == "QATM_全局PBR混合调节":
                 group_outputs = node.outputs
                 # 遍历当前节点群组实例的节点
                 for inp in node.node_tree.nodes:

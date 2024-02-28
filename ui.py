@@ -172,9 +172,10 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
 
         self.update_label()
 
-        row = layout.row()
+        row = layout.row(align=True)
         row.label(text=pgettext("为模型添加SDF驱动器"))
         row.operator("qatm.add_drivers_button", text="", icon="DRIVER")
+        row.operator("qatm.delete_drivers_nodes", text="", icon="X")
 
         # 创建选择框
         box = layout.box()

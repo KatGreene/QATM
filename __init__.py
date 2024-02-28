@@ -49,6 +49,7 @@ classes = (
     cls.QATM_OT_AddDriversButton, 
     cls.WM_OT_DeleteUnusedMaterialsByName,
     cls.WM_OT_DeleteGeometryNodesByName,
+    cls.QATM_OT_DeleteDriversNodes,
 
     cls.MaterialAssociationProperties,
     cls.OutlineCameraProperties,

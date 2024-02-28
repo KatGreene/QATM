@@ -128,6 +128,18 @@ class WM_OT_DeleteGeometryNodesByName(bpy.types.Operator):
         return {'FINISHED'}
     
 
+# 操作类用于删除选中物体中名为"QATM_Drivers"的几何节点修改器
+class QATM_OT_DeleteDriversNodes(bpy.types.Operator):
+    """删除选定的物体中名为'QATM_Drivers'的几何节点修改器"""
+    bl_idname = "qatm.delete_drivers_nodes"
+    bl_label = "删除'QATM_Drivers'修改器"
+
+    def execute(self, context):
+        func.delete_geometry_node_modifiers("QATM_Drivers")
+        bpy.ops.ed.undo_push(message="QATM: 删除驱动器")
+        return {'FINISHED'}
+    
+
 ### 添加一个指向集合的属性
 class MaterialAssociationProperties(bpy.types.PropertyGroup):
     collection: bpy.props.PointerProperty(
@@ -446,3 +458,8 @@ class QATM_OT_OpenManualPDF(bpy.types.Operator):
 
         return {'FINISHED'}
     
+
+class QATM_OT_SmoothNormalToColor(bpy.types.Operator):
+    bl_idname = "qatm.smooth_normal_to_color"
+    bl_label = "平滑法线到顶点色"
+    bl_description = "为选中模型执行平滑法线并存入顶点色"

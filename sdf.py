@@ -191,7 +191,7 @@ class QATM_OT_UnifySunlightRotation(bpy.types.Operator):
         
         # 获取并设置所有相应日光对象的父对象
         for obj in bpy.data.objects:
-            if "QATM_DirLight01_日光" in obj.name:
+            if "QATM_DirLight日光" in obj.name:
                 obj.parent = sunlight_empty
 
         bpy.ops.ed.undo_push(message="QATM: 统一日光旋转")

@@ -6,7 +6,9 @@
 
 import bpy
 import os
+import bmesh
 from bpy.app.translations import pgettext
+from mathutils import Color
 
 
 ### 加载描边节点组
@@ -329,11 +331,11 @@ def qatm_add_normal_fix():
 def add_drivers_to_selected_objects():
     scene = bpy.context.scene
     
-    outline_node_group = bpy.data.node_groups.get("QATM_Drivers")
+    drivers_node_group = bpy.data.node_groups.get("QATM_Drivers")
     # 检查名为"QATM_Drivers"的节点组
-    if not outline_node_group:
+    if not drivers_node_group:
         load_resources(["Collection/QATM_Drivers"])
-        outline_node_group = bpy.data.node_groups.get("QATM_Drivers")
+        drivers_node_group = bpy.data.node_groups.get("QATM_Drivers")
         def draw(self, context):
                 self.layout.label(text="已自动加载驱动器资源", icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
@@ -367,14 +369,22 @@ def add_drivers_to_selected_objects():
         bpy.ops.object.select_linked(type='MATERIAL')
         selected_objects = bpy.context.selected_objects
 
+    # 根据sdf_system_id值确定几何节点名称
+    if sdf_system_id == 0:
+        drivers_node_group_name = "QATM_Drivers"
+    else:
+        drivers_node_group = drivers_node_group.copy()
+        drivers_node_group_name = "QATM_Drivers.{:03d}".format(sdf_system_id)
+        drivers_node_group.name = drivers_node_group_name
+
     # 对所有选中的物体执行操作
     for obj in selected_objects:
         if obj.type == 'MESH':  # 确保只处理网格类型的物体
             # 创建新的几何节点修改器
-            geo_node_mod = obj.modifiers.new(type="NODES", name="QATM_Drivers")
+            geo_node_mod = obj.modifiers.new(type="NODES", name=drivers_node_group_name)
 
             # 设置修改器的节点组为描边节点组
-            geo_node_mod.node_group = outline_node_group
+            geo_node_mod.node_group = drivers_node_group
 
 
 def select_objects_with_same_keyword():
@@ -422,3 +432,50 @@ def hide_dir_lights():
                 obj.data.energy = 0 
                 obj.hide_viewport = True
                 obj.hide_render = True
+
+
+def smooth_normal_to_vertex():
+
+    # 确保Blender在'OBJECT'模式下
+    bpy.ops.object.mode_set(mode='OBJECT')
+
+    # 获取当前场景
+    scene = bpy.context.scene
+
+    # 获取当前选中的对象（确保它是一个网格）
+    obj = bpy.context.object
+    if not obj or obj.type != 'MESH':
+        raise TypeError("Selected object is not a mesh")
+
+    # 为了操作网格数据，需要先创建一个BMesh
+    mesh = obj.data
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+
+    # 确保我们处理的是最新的法线数据
+    bm.normal_update()
+
+    # 为保存顶点色创建一个顶点色层
+    color_layer = bm.loops.layers.color.new("Col")
+
+    # 遍历每个顶点，计算法线平均值并储存到顶点色中
+    for vert in bm.verts:
+        normal = vert.normal
+        avg_normal_color = Color((normal.x, normal.y, normal.z))
+
+        # 将法线数据（x, y, z）映射到[0, 1]的范围内
+        avg_normal_color = (avg_normal_color + Color((1.0, 1.0, 1.0))) * 0.5
+
+        # 设置每个loop的顶点色，对应于每个平面的每个顶点
+        for loop in vert.link_loops:
+            # 注意这里：我们添加了一个完全不透明的alpha值 1.0
+            loop[color_layer] = avg_normal_color[:] + (1.0,)
+
+    # 将更改的BMesh写回到原始网格中，并更新对象的显示
+    bm.to_mesh(mesh)
+    mesh.update()
+    bpy.context.view_layer.update()
+
+    # 切换到顶点色显示模式，这样我们可以看到法线颜色
+    bpy.context.object.data.vertex_colors.active_index = 0
+    bpy.ops.object.mode_set(mode='VERTEX_PAINT')
