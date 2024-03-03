@@ -194,6 +194,8 @@ class QATM_OT_UnifySunlightRotation(bpy.types.Operator):
             if "QATM_DirLight日光" in obj.name:
                 obj.parent = sunlight_empty
 
+        func.hide_dir_lights()
+
         bpy.ops.ed.undo_push(message="QATM: 统一日光旋转")
         return {'FINISHED'}
     
