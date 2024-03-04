@@ -479,3 +479,8 @@ def smooth_normal_to_vertex():
     # 切换到顶点色显示模式，这样我们可以看到法线颜色
     bpy.context.object.data.vertex_colors.active_index = 0
     bpy.ops.object.mode_set(mode='VERTEX_PAINT')
+
+
+def set_shadow_mode():
+    bpy.context.object.active_material.shadow_method = 'NONE'
+
