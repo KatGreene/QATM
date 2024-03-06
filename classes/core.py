@@ -5,13 +5,9 @@
 
 
 import bpy
-import os
-import subprocess
 from . import functions as func
 from bpy.props import StringProperty
 from bpy.types import Operator, UIList, PropertyGroup
-from bpy.app.translations import pgettext
-from gettext import gettext
 
 
 #UI操作类
@@ -25,6 +21,7 @@ class QATM_BaseCopyMaterialOperator(bpy.types.Operator):
         func.copy_material_to_selected_objects(self.material_suffix)
         bpy.ops.ed.undo_push(message="QATM: 匹配材质")
         return {'FINISHED'}
+
 
 # 应用列表中关键词的材质
 class QATM_OT_copy_material_of_keyword(QATM_BaseCopyMaterialOperator):
@@ -55,6 +52,7 @@ class QATM_KeywordItem(PropertyGroup):
            description="A keyword",
            default="Keyword") # type: ignore
 
+
 # 列表 UI 类
 class QATM_UL_uilist(UIList):
 
@@ -71,6 +69,7 @@ class QATM_UL_uilist(UIList):
             
             row = layout.row(align=True)
             row.label(text="", icon = 'SEQ_CHROMA_SCOPE')
+
 
 # 添加关键词操作
 class QATM_OT_NewItem(Operator):
@@ -115,6 +114,7 @@ class QATM_OT_NewItem(Operator):
         
         return {'FINISHED'}
 
+
 # 从集合添加关键词操作    
 class QATM_OT_AddFromCollection(Operator):
     bl_idname = "qatm.add_from_collection"
@@ -157,6 +157,7 @@ class QATM_OT_AddFromCollection(Operator):
 
         return {'FINISHED'}
 
+
 # 删除关键词操作
 class QATM_OT_DeleteItem(Operator):
     bl_idname = "qatm.delete_item"
@@ -179,6 +180,7 @@ class QATM_OT_DeleteItem(Operator):
         bpy.ops.ed.undo_push(message="QATM: 移除关键词")
 
         return {'FINISHED'}
+
 
 # 清除所有关键词
 class QATM_OT_ClearList(Operator):
@@ -240,3 +242,4 @@ class QATM_OT_MoveItem(Operator):
         bpy.ops.ed.undo_push(message="QATM: 移动关键词")
 
         return {'FINISHED'}
+    

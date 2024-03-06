@@ -8,8 +8,6 @@ import bpy
 import os
 import subprocess
 from . import functions as func
-from bpy.props import StringProperty
-from bpy.types import Operator, UIList, PropertyGroup
 from bpy.app.translations import pgettext
 from gettext import gettext
 
@@ -183,3 +181,4 @@ class QATM_OT_SmoothNormalToColor(bpy.types.Operator):
     bl_idname = "qatm.smooth_normal_to_color"
     bl_label = "平滑法线到顶点色"
     bl_description = "为选中模型执行平滑法线并存入顶点色"
+

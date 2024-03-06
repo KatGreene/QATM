@@ -64,3 +64,4 @@ class QATM_MaterialLinkSettings(bpy.types.PropertyGroup):
         description="QATM: 点击切换设置",
         default=False
     ) # type: ignore
+

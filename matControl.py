@@ -35,7 +35,7 @@ for label in qatm_labels:
 
 # UI面板绘制
 class QATM_PT_MatControlPanel(bpy.types.Panel):
-    bl_label = "QATM Material Control"
+    bl_label = pgettext("QATM 材质控制")
     bl_idname = "QATM_PT_mat_control_panel"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -44,10 +44,19 @@ class QATM_PT_MatControlPanel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         scene = context.scene
+
+        self.update_label()
+
         box = layout.box()
         box.label(text=pgettext("QATM材质PBR混合"), icon='PRESET')
         for label in qatm_labels:
-            box.prop(scene, f"qatm_value_{label}", slider=True)
+            box.prop(scene, f"qatm_value_{label}", slider=True, text=pgettext("材质号")+f"{label}")
+
+    def update_label(self):
+        if bpy.app.translations.locale in bpy.app.translations.locales:
+            locale = bpy.app.translations.locale
+            translated_label = pgettext("QATM 材质控制")
+            self.bl_label = translated_label
 
 
 # 注册

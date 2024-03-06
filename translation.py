@@ -47,8 +47,11 @@ translations_dict = {
 
         ("*", "已清理 "): "Cleared ",
         ("*", " 个材质"): " Unused Material(s)",
-
-        ("*", "设置亮度"): "Set Value",
+        
+        ("*", "QATM 材质控制"): "QATM Material Control",
+        ("*", "QATM材质PBR混合"): "QATM PBR Mix",
+        ("*", "设置亮度 "): "Set Value ",
+        ("*", "材质号 "): "Mat No.",
     },
 }
 

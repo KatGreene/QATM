@@ -211,3 +211,4 @@ class QATM_OT_AddNormalFix(bpy.types.Operator):
         func.qatm_add_normal_fix()
         bpy.ops.ed.undo_push(message="QATM: 法线修复")
         return {'FINISHED'}
+
