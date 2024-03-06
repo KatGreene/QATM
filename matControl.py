@@ -50,7 +50,7 @@ class QATM_PT_MatControlPanel(bpy.types.Panel):
         box = layout.box()
         box.label(text=pgettext("QATM材质PBR混合"), icon='PRESET')
         for label in qatm_labels:
-            box.prop(scene, f"qatm_value_{label}", slider=True, text=pgettext("材质号")+f"{label}")
+            box.prop(scene, f"qatm_value_{label}", slider=True, text=pgettext("材质号 ")+f"{label}")
 
     def update_label(self):
         if bpy.app.translations.locale in bpy.app.translations.locales:
@@ -84,3 +84,4 @@ def unregister():
 
 if __name__ == "__main__":
     register()
+

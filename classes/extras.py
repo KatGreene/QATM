@@ -159,8 +159,12 @@ class QATM_OT_OpenManualPDF(bpy.types.Operator):
     bl_description = "打开并查看用户PDF使用手册"
 
     def execute(self, context):
-        # 获取插件的文件路径（假设本操作文件与 'manual' 文件夹位于同一目录）
-        file_path = os.path.join(os.path.dirname(__file__), 'manual', 'manual_zh-CN.pdf')
+        # 获取当前文件路径
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        # 得到上级目录的路径
+        parent_dir_path = os.path.abspath(os.path.join(dir_path, os.pardir))
+        # 构造到上级目录中的resources文件夹的路径
+        file_path = os.path.join(parent_dir_path, 'manual', 'manual_zh-CN.pdf')
         
         # 确保文件存在
         if not os.path.isfile(file_path):
