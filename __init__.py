@@ -18,11 +18,16 @@
 
 import bpy
 import os
-from . import classes as cls
+
+from .classes import core as co
+from .classes import extras as ex
+from .classes import properties as pr
+from .classes import sdf
+
 from . import ui
-from . import sdf
 from . import matControl
 from . import translation as trans
+
 from bpy.props import CollectionProperty
 
 
@@ -42,39 +47,37 @@ bl_info = {
 
 
 classes = (
-    cls.QATM_OT_copy_material_of_keyword,
+    co.QATM_OT_copy_material_of_keyword,
+    co.QATM_KeywordItem, 
+    co.QATM_UL_uilist, 
+    co.QATM_OT_NewItem, 
+    co.QATM_OT_AddFromCollection,
+    co.QATM_OT_DeleteItem,
+    co.QATM_OT_ClearList, 
+    co.QATM_OT_MoveItem, 
 
-    cls.QATM_OT_SetBrush,
-    cls.QATM_OT_AddOutlineButton,  
-    cls.QATM_OT_AddDriversButton, 
-    cls.QATM_OT_DeleteUnusedMaterialsByName,
-    cls.QATM_OT_DeleteGeometryNodesByName,
-    cls.QATM_OT_DeleteDriversNodes,
+    ex.QATM_OT_SetBrush,
+    ex.QATM_OT_AddOutlineButton,  
+    ex.QATM_OT_AddDriversButton, 
+    ex.QATM_OT_DeleteUnusedMaterialsByName,
+    ex.QATM_OT_DeleteGeometryNodesByName,
+    ex.QATM_OT_DeleteDriversNodes,
+    ex.QATM_OT_AddResourcesOutline,
+    ex.QATM_OT_AddResourcesAll,
+    ex.QATM_OT_OpenManualPDF,
 
-    cls.QATM_MaterialAssociationProperties,
-    cls.QATM_OutlineCameraProperties,
-    cls.QATM_OutlineMaterialProperties,
-    cls.QATM_CustomIntProperties,
-    cls.QATM_MaterialSelectionSettings,
-    cls.QATM_MaterialLinkSettings,
-
-    cls.QATM_KeywordItem, 
-    cls.QATM_UL_uilist, 
-    cls.QATM_OT_NewItem, 
-    cls.QATM_OT_AddFromCollection,
-    cls.QATM_OT_DeleteItem,
-    cls.QATM_OT_ClearList, 
-    cls.QATM_OT_MoveItem, 
+    pr.QATM_MaterialAssociationProperties,
+    pr.QATM_OutlineCameraProperties,
+    pr.QATM_OutlineMaterialProperties,
+    pr.QATM_CustomIntProperties,
+    pr.QATM_MaterialSelectionSettings,
+    pr.QATM_MaterialLinkSettings,
 
     sdf.QATM_OT_AttachEmptyObject,
     sdf.QATM_OT_DetachEmptyObject,
     sdf.QATM_OT_AddNewSDF,
     sdf.QATM_OT_UnifySunlightRotation,
     sdf.QATM_OT_AddNormalFix,
-
-    cls.QATM_OT_AddResourcesOutline,
-    cls.QATM_OT_AddResourcesAll,
-    cls.QATM_OT_OpenManualPDF,
 
     ui.QATM_PT_custom_panel,
     ui.QATM_PT_custom_panel02,
@@ -84,13 +87,13 @@ classes = (
 )
 
 properties = [
-    ("mat_association_props", bpy.props.PointerProperty(type=cls.QATM_MaterialAssociationProperties)),
-    ("outline_camera_props", bpy.props.PointerProperty(type=cls.QATM_OutlineCameraProperties)),
-    ("outline_material_props", bpy.props.PointerProperty(type=cls.QATM_OutlineMaterialProperties)),
-    ("keyword_list", CollectionProperty(type=cls.QATM_KeywordItem)),
-    ("material_selection_settings", bpy.props.PointerProperty(type=cls.QATM_MaterialSelectionSettings)),
-    ("material_link_settings", bpy.props.PointerProperty(type=cls.QATM_MaterialLinkSettings)),
-    ("sdf_tool", bpy.props.PointerProperty(type=cls.QATM_CustomIntProperties)),
+    ("mat_association_props", bpy.props.PointerProperty(type=pr.QATM_MaterialAssociationProperties)),
+    ("outline_camera_props", bpy.props.PointerProperty(type=pr.QATM_OutlineCameraProperties)),
+    ("outline_material_props", bpy.props.PointerProperty(type=pr.QATM_OutlineMaterialProperties)),
+    ("keyword_list", CollectionProperty(type=co.QATM_KeywordItem)),
+    ("material_selection_settings", bpy.props.PointerProperty(type=pr.QATM_MaterialSelectionSettings)),
+    ("material_link_settings", bpy.props.PointerProperty(type=pr.QATM_MaterialLinkSettings)),
+    ("sdf_tool", bpy.props.PointerProperty(type=pr.QATM_CustomIntProperties)),
     ("keyword_list_index", bpy.props.IntProperty(name="自定义关键词", default=0, min=0)),
     ("suffix", bpy.props.StringProperty(name="Suffix", default="")),
     ("source_armature", bpy.props.StringProperty(name="选中骨架"))
