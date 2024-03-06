@@ -11,7 +11,7 @@ from . import functions as func
 # 装载SDF空物体
 class QATM_OT_AttachEmptyObject(bpy.types.Operator):
     """装载SDF空物体"""
-    bl_idname = "object.attach_empty_object"
+    bl_idname = "qatm.attach_empty_object"
     bl_label = "装载SDF空物体"
     bl_options = {'REGISTER', 'UNDO'}
     bl_description = "为选中骨架装载对应SDF系统的空物体"
@@ -106,7 +106,7 @@ class QATM_OT_AttachEmptyObject(bpy.types.Operator):
 # 卸载SDF空物体
 class QATM_OT_DetachEmptyObject(bpy.types.Operator):
     """卸载SDF空物体"""
-    bl_idname = "object.detach_empty_object"
+    bl_idname = "qatm.detach_empty_object"
     bl_label = "卸载SDF空物体"
     bl_options = {'REGISTER', 'UNDO'}
     bl_description = "清空选中骨架子级内的空物体"
@@ -151,7 +151,7 @@ class QATM_OT_DetachEmptyObject(bpy.types.Operator):
 # 新的SDF系统
 class QATM_OT_AddNewSDF(bpy.types.Operator):
     """添加新的SDF系统"""
-    bl_idname = "object.add_new_sdf"
+    bl_idname = "qatm.add_new_sdf"
     bl_label = "添加新的SDF系统"
     bl_options = {'REGISTER', 'UNDO'}
     bl_description = "为场景内新增一个独立的SDF系统"

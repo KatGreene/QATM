@@ -14,8 +14,8 @@ from bpy.app.translations import pgettext
 from gettext import gettext
 
 
-class TOOL_OT_AddResourcesOutline(bpy.types.Operator):
-    bl_idname = "tool.add_resources_outline"
+class QATM_OT_AddResourcesOutline(bpy.types.Operator):
+    bl_idname = "qatm.add_resources_outline"
     bl_label = pgettext("追加资源/Append Resources")
     bl_description = gettext("追加描边节点组与描边材质")
 
@@ -41,8 +41,8 @@ class TOOL_OT_AddResourcesOutline(bpy.types.Operator):
         return {'FINISHED'}
     
 
-class TOOL_OT_AddResourcesAll(bpy.types.Operator):
-    bl_idname = "tool.add_resources_all"
+class QATM_OT_AddResourcesAll(bpy.types.Operator):
+    bl_idname = "qatm.add_resources_all"
     bl_label = gettext("手动追加全部资源")
     bl_description = gettext("追加预设工程中的全部节点组/材质/物体")
 
@@ -71,8 +71,8 @@ class TOOL_OT_AddResourcesAll(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class TOOL_OT_ConfirmResourceLoad(bpy.types.Operator):
-    bl_idname = "tool.confirm_resource_load"
+class QATM_OT_ConfirmResourceLoad(bpy.types.Operator):
+    bl_idname = "qatm.confirm_resource_load"
     bl_label = "确认资源加载"
 
     def execute(self, context):
@@ -82,8 +82,8 @@ class TOOL_OT_ConfirmResourceLoad(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class TOOL_OT_SetBrush(bpy.types.Operator):
-    bl_idname = "tool.set_brush_button"
+class QATM_OT_SetBrush(bpy.types.Operator):
+    bl_idname = "qatm.set_brush_button"
     bl_label = "快捷设置参数"
     bl_description = "设置权重笔刷值为0 并取消仅前面的面"
 
@@ -94,8 +94,8 @@ class TOOL_OT_SetBrush(bpy.types.Operator):
         return {'FINISHED'}
 
     
-class OBJECT_OT_AddOutlineButton(bpy.types.Operator):
-    bl_idname = "object.add_outline_button"
+class QATM_OT_AddOutlineButton(bpy.types.Operator):
+    bl_idname = "qatm.add_outline_button"
     bl_label = "添加描边"
     bl_description = "给选定的物体添加一个名为‘QATM_OutLine’的几何节点组"
 
@@ -117,9 +117,9 @@ class QATM_OT_AddDriversButton(bpy.types.Operator):
     
 
 # 操作类用于删除选中物体中名为"QATM_OutLine"的几何节点修改器
-class WM_OT_DeleteGeometryNodesByName(bpy.types.Operator):
+class QATM_OT_DeleteGeometryNodesByName(bpy.types.Operator):
     """删除选定的物体中名为'QATM_OutLine'的几何节点修改器"""
-    bl_idname = "wm.delete_geometry_nodes_by_name"
+    bl_idname = "qatm.delete_geometry_nodes_by_name"
     bl_label = "删除'QATM_OutLine'修改器"
 
     def execute(self, context):
@@ -141,7 +141,7 @@ class QATM_OT_DeleteDriversNodes(bpy.types.Operator):
     
 
 ### 添加一个指向集合的属性
-class MaterialAssociationProperties(bpy.types.PropertyGroup):
+class QATM_MaterialAssociationProperties(bpy.types.PropertyGroup):
     collection: bpy.props.PointerProperty(
         name="Collection",
         type=bpy.types.Collection
@@ -149,7 +149,7 @@ class MaterialAssociationProperties(bpy.types.PropertyGroup):
 
 
 ### 添加一个指向摄像机的属性
-class OutlineCameraProperties(bpy.types.PropertyGroup):
+class QATM_OutlineCameraProperties(bpy.types.PropertyGroup):
     outline_camera: bpy.props.PointerProperty(
         name="描边摄像机",
         type=bpy.types.Object,
@@ -159,14 +159,14 @@ class OutlineCameraProperties(bpy.types.PropertyGroup):
 
 
 ### 添加一个指向描边材质的属性
-class OutlineMaterialProperties(bpy.types.PropertyGroup):
+class QATM_OutlineMaterialProperties(bpy.types.PropertyGroup):
     outline_material: bpy.props.PointerProperty(
         name="描边材质",
         type=bpy.types.Material,
     ) # type: ignore
     
 
-class CustomIntProperties(bpy.types.PropertyGroup):
+class QATM_CustomIntProperties(bpy.types.PropertyGroup):
     sdf_system_id: bpy.props.IntProperty(
         name="SDF系统",
         description="SDF系统整数ID",
@@ -177,14 +177,14 @@ class CustomIntProperties(bpy.types.PropertyGroup):
 
 
 ### 添加布尔属性
-class MaterialSelectionSettings(bpy.types.PropertyGroup):
+class QATM_MaterialSelectionSettings(bpy.types.PropertyGroup):
     select_objects_with_mat: bpy.props.BoolProperty(
         name="应用后选中源物体",
         description="QATM: 点击切换设置",
         default=False
     ) # type: ignore
 
-class MaterialLinkSettings(bpy.types.PropertyGroup):
+class QATM_MaterialLinkSettings(bpy.types.PropertyGroup):
     link_objects_with_mat: bpy.props.BoolProperty(
         name="应用前关联选择同材质物体",
         description="QATM: 点击切换设置",
@@ -193,9 +193,9 @@ class MaterialLinkSettings(bpy.types.PropertyGroup):
 
 
 #UI操作类
-class BaseCopyMaterialOperator(bpy.types.Operator):
+class QATM_BaseCopyMaterialOperator(bpy.types.Operator):
     """基础复制材质操作类"""
-    bl_idname = "material.copy_base"
+    bl_idname = "qatm.copy_base"
     bl_label = "复制基础材质"
     material_suffix = ""
 
@@ -205,8 +205,8 @@ class BaseCopyMaterialOperator(bpy.types.Operator):
         return {'FINISHED'}
 
 # 应用列表中关键词的材质
-class QATM_OT_copy_material_of_keyword(BaseCopyMaterialOperator):
-    bl_idname = "material.copy_material_of_keyword"
+class QATM_OT_copy_material_of_keyword(QATM_BaseCopyMaterialOperator):
+    bl_idname = "qatm.copy_material_of_keyword"
     bl_label = "应用含此关键词的材质"
     
     @classmethod
@@ -227,14 +227,14 @@ class QATM_OT_copy_material_of_keyword(BaseCopyMaterialOperator):
     
 
 ### UIList部分 定义关键词项属性
-class KeywordItem(PropertyGroup):
+class QATM_KeywordItem(PropertyGroup):
     name: StringProperty(
            name="Keyword",
            description="A keyword",
            default="Keyword") # type: ignore
 
 # 列表 UI 类
-class KEYWORDS_UL_uilist(UIList):
+class QATM_UL_uilist(UIList):
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
         custom_icon = 'WORDWRAP_ON' if item else 'WORDWRAP_OFF'
@@ -251,7 +251,7 @@ class KEYWORDS_UL_uilist(UIList):
             row.label(text="", icon = 'SEQ_CHROMA_SCOPE')
 
 # 添加关键词操作
-class KEYWORDS_OT_NewItem(Operator):
+class QATM_OT_NewItem(Operator):
     bl_idname = "qatm.new_item"
     bl_label = "添加新关键词"
     
@@ -294,7 +294,7 @@ class KEYWORDS_OT_NewItem(Operator):
         return {'FINISHED'}
 
 # 从集合添加关键词操作    
-class KEYWORDS_OT_AddFromCollection(Operator):
+class QATM_OT_AddFromCollection(Operator):
     bl_idname = "qatm.add_from_collection"
     bl_label = "从集合添加关键词"
     bl_description = "导入集合内的所有材质名到自定义关键词列表"
@@ -336,7 +336,7 @@ class KEYWORDS_OT_AddFromCollection(Operator):
         return {'FINISHED'}
 
 # 删除关键词操作
-class KEYWORDS_OT_DeleteItem(Operator):
+class QATM_OT_DeleteItem(Operator):
     bl_idname = "qatm.delete_item"
     bl_label = "删除此关键词"
     
@@ -359,7 +359,7 @@ class KEYWORDS_OT_DeleteItem(Operator):
         return {'FINISHED'}
 
 # 清除所有关键词
-class KEYWORDS_OT_ClearList(Operator):
+class QATM_OT_ClearList(Operator):
     bl_idname = "qatm.clear_list"
     bl_label = "清除所有关键词"
     
@@ -384,7 +384,7 @@ class KEYWORDS_OT_ClearList(Operator):
 
 
 # 移动关键词操作
-class KEYWORDS_OT_MoveItem(Operator):
+class QATM_OT_MoveItem(Operator):
     bl_idname = "qatm.move_item"
     bl_label = "移动此关键词"
     
@@ -421,9 +421,9 @@ class KEYWORDS_OT_MoveItem(Operator):
     
 
 # 运算符，执行删除操作
-class WM_OT_DeleteUnusedMaterialsByName(bpy.types.Operator):
+class QATM_OT_DeleteUnusedMaterialsByName(bpy.types.Operator):
     """删除未使用且名称匹配的材质"""
-    bl_idname = "wm.delete_unused_materials_by_name"
+    bl_idname = "qatm.delete_unused_materials_by_name"
     bl_label = "删除未使用的匹配材质"
 
     # 当按钮被按下时执行的方法
