@@ -11,11 +11,14 @@ from bpy.app.translations import pgettext
 from mathutils import Color
 
 
-### 加载描边节点组
+# 加载资源
 def load_resources(nodepaths):
-
+    # 获取当前文件路径
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    blend_file_path = os.path.join(dir_path, 'resources', 'resources.blend')
+    # 得到上级目录的路径
+    parent_dir_path = os.path.abspath(os.path.join(dir_path, os.pardir))
+    # 构造到上级目录中的resources文件夹的路径
+    blend_file_path = os.path.join(parent_dir_path, 'resources', 'resources.blend')
 
     for nodepath in nodepaths:
         # 提取文件夹和节点名称
