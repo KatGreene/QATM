@@ -243,3 +243,14 @@ class QATM_OT_MoveItem(Operator):
 
         return {'FINISHED'}
     
+
+class QATM_FullAutoShading(Operator):
+    bl_idname = "qatm.full_auto_shading"
+    bl_label = "全自动上材质"
+
+    def execute(self, context):
+
+
+        bpy.ops.ed.undo_push(message="QATM: 自动上材质")
+
+        return {'FINISHED'}

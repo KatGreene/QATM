@@ -88,7 +88,7 @@ def add_outline_to_selected_objects():
 
     # 获取是否关联选择同材质物体
     link_objects = scene.material_link_settings.link_objects_with_mat
-    if link_objects:
+    if link_objects and len(selected_objects) == 1:
         bpy.ops.object.select_linked(type='MATERIAL')
         selected_objects = bpy.context.selected_objects
 
@@ -109,7 +109,7 @@ def delete_geometry_node_modifiers(named):
 
     # 获取是否关联选择同材质物体
     link_objects = scene.material_link_settings.link_objects_with_mat
-    if link_objects:
+    if link_objects and len(selected_objects) == 1:
         bpy.ops.object.select_linked(type='MATERIAL')
         selected_objects = bpy.context.selected_objects
     
@@ -190,7 +190,7 @@ def copy_material_to_selected_objects(mat_name):
 
     link_objects = scene.material_link_settings.link_objects_with_mat
 
-    if link_objects:
+    if link_objects and len(selected_objects) == 1:
         bpy.ops.object.select_linked(type='MATERIAL')
         selected_objects = bpy.context.selected_objects
 
@@ -368,7 +368,7 @@ def add_drivers_to_selected_objects():
 
     # 获取是否关联选择同材质物体
     link_objects = scene.material_link_settings.link_objects_with_mat
-    if link_objects:
+    if link_objects and len(selected_objects) == 1:
         bpy.ops.object.select_linked(type='MATERIAL')
         selected_objects = bpy.context.selected_objects
 

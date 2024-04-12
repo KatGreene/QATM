@@ -8,8 +8,11 @@ import bpy
 import os
 import subprocess
 from . import functions as func
+from . import normalEdit as norm
 from bpy.app.translations import pgettext
 from gettext import gettext
+from mathutils import *
+from math import *
 
 
 class QATM_OT_AddResourcesOutline(bpy.types.Operator):
@@ -179,10 +182,29 @@ class QATM_OT_OpenManualPDF(bpy.types.Operator):
             subprocess.call([opener, file_path])
 
         return {'FINISHED'}
-    
+ 
 
-class QATM_OT_SmoothNormalToColor(bpy.types.Operator):
+class QATM_OT_SmoothNormalToUV(bpy.types.Operator):
     bl_idname = "qatm.smooth_normal_to_color"
-    bl_label = "平滑法线到顶点色"
-    bl_description = "为选中模型执行平滑法线并存入顶点色"
+    bl_label = "平滑法线到UV"
+    bl_description = "为选中模型执行平滑法线并存入UV"
+
+
+    def execute(self, context):
+        norm.smooth_normal_to_uv()
+        bpy.ops.ed.undo_push(message="QATM: 平滑法线到UV")
+        return {'FINISHED'}
+
+
+class QATM_OT_CopyNormalToUV(bpy.types.Operator):
+    bl_idname = "qatm.copy_normal_to_color"
+    bl_label = "复制法线到UV"
+    bl_description = "将选中模型法线存入UV"
+
+
+    def execute(self, context):
+        norm.copy_normal_to_uv()
+        bpy.ops.ed.undo_push(message="QATM: 复制法线到UV")
+        return {'FINISHED'}
+    
 

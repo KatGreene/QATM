@@ -65,6 +65,8 @@ classes = (
     ex.QATM_OT_AddResourcesOutline,
     ex.QATM_OT_AddResourcesAll,
     ex.QATM_OT_OpenManualPDF,
+    ex.QATM_OT_SmoothNormalToUV,
+    ex.QATM_OT_CopyNormalToUV,
 
     pr.QATM_MaterialAssociationProperties,
     pr.QATM_OutlineCameraProperties,
@@ -117,6 +119,7 @@ def register():
 
     trans.register()
     matControl.register()
+    print("QATM Registered")
     # bpy.app.translations.register(__name__, translation_dict) # 注册你的翻译字典
     
 

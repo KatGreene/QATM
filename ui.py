@@ -189,7 +189,11 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
         row = layout.row(align=True)
         row.operator("qatm.add_new_sdf", text=pgettext("添加新的SDF系统"), icon="ADD")
         row.operator("qatm.unify_sunlight_rotation", text="", icon="LIGHT_SUN")
-        row.operator("qatm.add_normal_fix", text="", icon="MOD_NORMALEDIT")        
+        row.operator("qatm.add_normal_fix", text="", icon="MOD_NORMALEDIT")     
+
+        row = layout.row(align=True)   
+        row.operator("qatm.smooth_normal_to_color", text="平滑法线", icon="LIGHT_HEMI")
+        row.operator("qatm.copy_normal_to_color", text="复制法线", icon="LIGHT_AREA")  
 
     def update_label(self):
         if bpy.app.translations.locale in bpy.app.translations.locales:
