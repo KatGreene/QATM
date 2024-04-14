@@ -459,7 +459,7 @@ def smooth_normal_to_vertex():
     bm.normal_update()
 
     # 为保存顶点色创建一个顶点色层
-    color_layer = bm.loops.layers.color.new("Col")
+    color_layer = bm.loops.layers.color.new("NormalColor")
 
     # 遍历每个顶点，计算法线平均值并储存到顶点色中
     for vert in bm.verts:

@@ -191,7 +191,14 @@ class QATM_OT_SmoothNormalToUV(bpy.types.Operator):
 
 
     def execute(self, context):
-        norm.smooth_normal_to_uv()
+        selected_objects = bpy.context.selected_objects
+
+        for obj in selected_objects:
+            if obj is None or obj.type != 'MESH':
+                continue
+
+            norm.smooth_normal_to_uv(obj)
+        
         bpy.ops.ed.undo_push(message="QATM: 平滑法线到UV")
         return {'FINISHED'}
 
@@ -203,7 +210,14 @@ class QATM_OT_CopyNormalToUV(bpy.types.Operator):
 
 
     def execute(self, context):
-        norm.copy_normal_to_uv()
+        selected_objects = bpy.context.selected_objects
+
+        for obj in selected_objects:
+            if obj is None or obj.type != 'MESH':
+                continue
+
+            norm.copy_normal_to_uv(obj)
+
         bpy.ops.ed.undo_push(message="QATM: 复制法线到UV")
         return {'FINISHED'}
     
