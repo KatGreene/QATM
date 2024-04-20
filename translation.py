@@ -37,8 +37,10 @@ translations_dict = {
         ("*", "为模型添加SDF驱动器"): "Add SDF Driver to Model",
         ("*", "骨架"): "Armature",
         ("*", "SDF系统ID"): "SDF System ID",
-        ("*", "装载空物体"): "Attach",
-        ("*", "卸载空物体"): "Detach",
+        ("*", "装载"): "Attach",
+        ("*", "卸载"): "Detach",
+        ("*", "添加"): "Add",
+        ("*", "删除"): "Delete",
         ("*", "添加新的SDF系统"): "Add New System",
 
         ("*", "追加资源/Append Resources"): "Append Resources",
@@ -51,7 +53,7 @@ translations_dict = {
         ("*", "QATM 材质控制"): "QATM Material Control",
         ("*", "QATM材质PBR混合"): "QATM PBR Mix",
         ("*", "设置亮度 "): "Set Value ",
-        ("*", "材质号 "): "Mat No.",
+        ("*", "材质号 "): "Mat No.", 
     },
 }
 

@@ -37,6 +37,7 @@ for label in qatm_labels:
 
 # UI面板绘制
 class QATM_PT_MatControlPanel(bpy.types.Panel):
+    """QATM材质控制面板"""
     bl_label = pgettext("QATM 材质控制")
     bl_idname = "QATM_PT_mat_control_panel"
     bl_space_type = 'VIEW_3D'

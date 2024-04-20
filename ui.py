@@ -10,7 +10,7 @@ from bpy.app.translations import pgettext
 
 # UI界面
 class QATM_PT_custom_panel(bpy.types.Panel):
-    """创建一个在N键属性栏中的自定义面板"""
+    """QATM主面板"""
     bl_label = "QATM"
     bl_idname = "QATM_PT_custom_panel"
     bl_space_type = 'VIEW_3D'
@@ -64,7 +64,7 @@ class QATM_PT_custom_panel(bpy.types.Panel):
 
 
 class QATM_PT_custom_panel02(bpy.types.Panel):
-    """创建一个在N键属性栏中的自定义面板"""
+    """QATM附加功能面板"""
     bl_label = pgettext("QATM 附加功能")
     bl_idname = "QATM_PT_custom_panel02"
     bl_space_type = 'VIEW_3D'
@@ -89,7 +89,7 @@ class QATM_PT_custom_panel02(bpy.types.Panel):
 
 
 class QATM_PT_custom_subpanel01(bpy.types.Panel):
-    """创建一个在N键属性栏中的自定义面板"""
+    """QATM附加功能面板子面板"""
     bl_label = pgettext("删除多余材质")
     bl_parent_id = "QATM_PT_custom_panel02"
     bl_space_type = 'VIEW_3D'
@@ -115,7 +115,7 @@ class QATM_PT_custom_subpanel01(bpy.types.Panel):
 
 
 class QATM_PT_custom_subpanel02(bpy.types.Panel):
-    """创建一个在N键属性栏中的自定义面板"""
+    """QATM附加功能面板子面板"""
     bl_label = pgettext("描边")
     bl_parent_id = "QATM_PT_custom_panel02"
     bl_space_type = 'VIEW_3D'
@@ -154,7 +154,7 @@ class QATM_PT_custom_subpanel02(bpy.types.Panel):
 
 
 class QATM_PT_custom_subpanel03(bpy.types.Panel):
-    """创建一个自定义面板类"""
+    """QATM附加功能面板子面板"""
     bl_label = pgettext("SDF工具")
     bl_parent_id = "QATM_PT_custom_panel02"
 
@@ -170,22 +170,23 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
 
         self.update_label()
 
-        row = layout.row(align=True)
-        row.label(text=pgettext("为模型添加SDF驱动器"))
-        row.operator("qatm.add_drivers_button", text="", icon="DRIVER")
-        row.operator("qatm.delete_drivers_nodes", text="", icon="X")
+        row = layout.row(align=True)  
 
-        # 创建选择框
         box = layout.box()
         col = box.column()
         col.prop_search(context.scene, "source_armature", bpy.data, "objects", text=pgettext("骨架"))
         col.prop(sdf_tool, "sdf_system_id", text=pgettext("SDF系统ID"))
-        
-        # 创建按钮
-        row = layout.row()
+        row = box.row(align=True)
         row.scale_y = 1.5
-        row.operator("qatm.attach_empty_object", text=pgettext("装载空物体"), icon="SORT_DESC")
-        row.operator("qatm.detach_empty_object", text=pgettext("卸载空物体"), icon="SORT_ASC")
+        row.label(text="空物体:")
+        row.operator("qatm.attach_empty_object", text=pgettext("装载"), icon="SORT_DESC")
+        row.operator("qatm.detach_empty_object", text=pgettext("卸载"), icon="SORT_ASC")
+        row = box.row(align=True)
+        row.scale_y = 1.5
+        row.label(text="驱动器:")
+        row.operator("qatm.add_drivers_button", text=pgettext("添加"), icon="ADD")
+        row.operator("qatm.delete_drivers_nodes", text=pgettext("删除"), icon="X")
+        
         row = layout.row(align=True)
         row.operator("qatm.add_new_sdf", text=pgettext("添加新的SDF系统"), icon="ADD")
         row.operator("qatm.unify_sunlight_rotation", text="", icon="LIGHT_SUN")
