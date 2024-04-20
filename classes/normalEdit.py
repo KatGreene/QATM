@@ -14,7 +14,7 @@ import bmesh
 def smooth_normal_to_uv(obj):
     bpy.ops.object.mode_set(mode='OBJECT')
     mesh = obj.data
-                
+
     # 遍历对象的UV层列表
     uv_layers = mesh.uv_layers
     uv_layer_exists = False
@@ -24,46 +24,46 @@ def smooth_normal_to_uv(obj):
             break
 
     if uv_layer_exists:
-        mesh.calc_tangents(uvmap = "UVMap")
+        mesh.calc_tangents(uvmap="UVMap")
     else:
-        uv_layer = mesh.uv_layers.new(name = "UVMap")
-        mesh.calc_tangents(uvmap = "UVMap")
+        uv_layer = mesh.uv_layers.new(name="UVMap")
+        mesh.calc_tangents(uvmap="UVMap")
 
-    dict = {}
+    geo_dict = {}
 
     def vec2str(vec):
         return "x=" + str(vec.x) + ",y=" + str(vec.y) + ",z=" + str(vec.z)
 
-    def cross_product(v1, v2):
-        return Vector((v1.y * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y))
+    def cross_product(vec1, vec2):
+        return Vector(
+            (vec1.y * vec2.z - vec2.y * vec1.z, vec1.z * vec2.x - vec2.z * vec1.x, vec1.x * vec2.y - vec2.x * vec1.y))
 
-    def vector_length(v):
-        return sqrt(v.x * v.x + v.y * v.y + v.z * v.z)
+    def vector_length(vec):
+        return sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z)
 
-    def normallize(v):
-        return v / (vector_length(v) + 0.001)
+    def normallize(vec):
+        return vec / (vector_length(vec) + 0.001)
 
-    def dot_product(v1, v2):
-        return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
+    def dot_product(vec1, vec2):
+        return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z
 
-    def included_angle(v1, v2):
-        a_size = vector_length(v1)
-        b_size = vector_length(v2)
-        degree = np.arccos(dot_product(v1, v2) / (a_size * b_size))
+    def included_angle(vec1, vec2):
+        a_size = vector_length(vec1)
+        b_size = vector_length(vec2)
+        degree = np.arccos(dot_product(vec1, vec2) / (a_size * b_size))
         return degree
 
     def need_outline(vertex):
-        need = True
+        # need = False
         for g in vertex.groups:
             if g.group == 446:
-                need = True
                 break
         return True
 
     for v in mesh.vertices:
         co = v.co
         co_str = vec2str(co)
-        dict[co_str] = []
+        geo_dict[co_str] = []
 
     for poly in mesh.polygons:
         l0 = mesh.loops[poly.loop_start]
@@ -74,42 +74,42 @@ def smooth_normal_to_uv(obj):
         v1 = mesh.vertices[l1.vertex_index]
         v2 = mesh.vertices[l2.vertex_index]
 
-        n = cross_product(v1.co - v0.co , v2.co - v0.co)
+        n = cross_product(v1.co - v0.co, v2.co - v0.co)
         n = normallize(n)
 
         co0_str = vec2str(v0.co)
         co1_str = vec2str(v1.co)
         co2_str = vec2str(v2.co)
 
-        if co0_str in dict and need_outline(v0):
+        if co0_str in geo_dict and need_outline(v0):
             w = included_angle(v2.co - v0.co, v1.co - v0.co)
-            dict[co0_str].append({"n":n, "w":w, "l":l0})
-        if co1_str in dict and need_outline(v1):
+            geo_dict[co0_str].append({"n": n, "w": w, "l": l0})
+        if co1_str in geo_dict and need_outline(v1):
             w = included_angle(v2.co - v1.co, v0.co - v1.co)
-            dict[co0_str].append({"n":n, "w":w, "l":l1})
-        if co2_str in dict and need_outline(v2):
+            geo_dict[co0_str].append({"n": n, "w": w, "l": l1})
+        if co2_str in geo_dict and need_outline(v2):
             w = included_angle(v1.co - v2.co, v0.co - v2.co)
-            dict[co0_str].append({"n":n, "w":w, "l":l2})
+            geo_dict[co0_str].append({"n": n, "w": w, "l": l2})
 
-    uv_layer = mesh.uv_layers.new(name = "SmoothNormal")
+    uv_layer = mesh.uv_layers.new(name="SmoothNormal")
 
     for poly in mesh.polygons:
         for loop_index in range(poly.loop_start, poly.loop_start + poly.loop_total):
             vertex_index = mesh.loops[loop_index].vertex_index
             v = mesh.vertices[vertex_index]
-            smoothnormal = Vector((0,0,0))
+            smoothnormal = Vector((0, 0, 0))
             weightsum = 0
             if need_outline(v):
                 costr = vec2str(v.co)
-                
-                if costr in dict:
-                    a = dict[costr]
+
+                if costr in geo_dict:
+                    a = geo_dict[costr]
                     for d in a:
                         n = d['n']
                         w = d['w']
                         smoothnormal += n * w
                         weightsum += w
-            if smoothnormal != Vector((0,0,0)):
+            if smoothnormal != Vector((0, 0, 0)):
                 smoothnormal /= weightsum
                 smoothnormal = normallize(smoothnormal)
 
@@ -117,16 +117,16 @@ def smooth_normal_to_uv(obj):
             tangent = mesh.loops[loop_index].tangent
             bitangent = mesh.loops[loop_index].bitangent
 
-            normalTSX = dot_product(tangent, smoothnormal)
-            normalTSY = dot_product(bitangent, smoothnormal)
-            normalTSZ = dot_product(normal, smoothnormal)
+            normal_tsx = dot_product(tangent, smoothnormal)
+            normal_tsy = dot_product(bitangent, smoothnormal)
+            normal_tsz = dot_product(normal, smoothnormal)
 
-            normalTS = Vector((normalTSX, normalTSY, normalTSZ))
+            normal_ts = Vector((normal_tsx, normal_tsy, normal_tsz))
 
             # color = [normalTS.x * 0.5 + 0.5, normalTS.y *0.5 + 0.5, normalTS.z *0.5 + 0.5, 1]
             # mesh.vertex_colors.active.data[loop_index].color = color
 
-            uv = (normalTS.x * 0.5 + 0.5, normalTS.y *0.5 + 0.5)
+            uv = (normal_ts.x * 0.5 + 0.5, normal_ts.y * 0.5 + 0.5)
             # uv = (normalTS.x, 1 + normalTS.y)
             uv_layer.data[loop_index].uv = uv
 
@@ -139,29 +139,29 @@ def copy_normal_to_uv(obj):
     bpy.ops.object.mode_set(mode='OBJECT')
 
     mesh = obj.data
-    
-    uv_layer = mesh.uv_layers.new(name = "CopiedNormal")
+
+    uv_layer = mesh.uv_layers.new(name="CopiedNormal")
     # 设置新建的UV层为当前活动的UV
     obj.data.uv_layers.active = uv_layer
-    mesh.calc_tangents(uvmap = "CopiedNormal")
-    
+    mesh.calc_tangents(uvmap="CopiedNormal")
+
     # uv_layer = mesh.uv_layers.active
-    
+
     uv_data = uv_layer.data
-    
+
     mesh.calc_normals()
-    
+
     bm = bmesh.new()
     bm.from_mesh(mesh)
-    
+
     uv_layer = bm.loops.layers.uv.active  # 此处修改
-    
-    for f in bm.faces:
-        for l in f.loops:
-            luv = l[uv_layer]  # 修改后的正确引用方法
-            normal = l.vert.normal
+
+    for face in bm.faces:
+        for loop in face.loops:
+            luv = loop[uv_layer]  # 修改后的正确引用方法
+            normal = loop.vert.normal
             # 适当地调整然后重新映射这些坐标
             luv.uv = ((normal.x + 1) / 2, (normal.y + 1) / 2)
-    
+
     bm.to_mesh(mesh)
     bm.free()

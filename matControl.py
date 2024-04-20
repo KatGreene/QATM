@@ -7,9 +7,9 @@
 import bpy
 from bpy.app.translations import pgettext
 
-
 # 假设的标签数组
 qatm_labels = ["01", "02", "0304", "05"]
+
 
 # 更新数值的函数
 def update_qatm(self, context, label):
@@ -27,11 +27,13 @@ def update_qatm(self, context, label):
                         inp.outputs[0].default_value = getattr(context.scene, "qatm_value_" + label)
                         break
 
+
 # 为每个标签创建自己的更新函数
 for label in qatm_labels:
     exec(
         f"def update_{label}(self, context): update_qatm(self, context, '{label}')"
     )
+
 
 # UI面板绘制
 class QATM_PT_MatControlPanel(bpy.types.Panel):
@@ -50,7 +52,7 @@ class QATM_PT_MatControlPanel(bpy.types.Panel):
         box = layout.box()
         box.label(text=pgettext("QATM材质PBR混合"), icon='PRESET')
         for label in qatm_labels:
-            box.prop(scene, f"qatm_value_{label}", slider=True, text=pgettext("材质号 ")+f"{label}")
+            box.prop(scene, f"qatm_value_{label}", slider=True, text=pgettext("材质号 ") + f"{label}")
 
     def update_label(self):
         if bpy.app.translations.locale in bpy.app.translations.locales:
@@ -66,7 +68,7 @@ def register():
             bpy.types.Scene,
             f"qatm_value_{label}",
             bpy.props.FloatProperty(
-                name="Set Value "+f"{label}",
+                name="Set Value " + f"{label}",
                 description=f"Set value for {label} node label",
                 default=0.0,
                 min=0.0,
@@ -76,12 +78,13 @@ def register():
         )
     bpy.utils.register_class(QATM_PT_MatControlPanel)
 
+
 # 注销
 def unregister():
     bpy.utils.unregister_class(QATM_PT_MatControlPanel)
     for label in qatm_labels:
         delattr(bpy.types.Scene, f"qatm_value_{label}")
 
+
 if __name__ == "__main__":
     register()
-
