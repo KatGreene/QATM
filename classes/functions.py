@@ -78,13 +78,19 @@ def add_outline_to_selected_objects():
     outline_cam_props = scene.outline_camera_props
     camera_object = outline_cam_props.outline_camera
     if camera_object:
-        bpy.data.node_groups["QATM_OutLine"].inputs[5].default_value = camera_object
+        try:
+            bpy.data.node_groups["QATM_OutLine"].inputs[5].default_value = camera_object
+        except:
+            bpy.data.node_groups["QATM_OutLine"].interface.items_tree[6].default_value = camera_object # Blender 4.1+ Datapath
 
     # 设置默认描边材质
     outline_mat_props = scene.outline_material_props
     outline_mat = outline_mat_props.outline_material
     if outline_mat:
-        bpy.data.node_groups["QATM_OutLine"].inputs[3].default_value = outline_mat
+        try:
+            bpy.data.node_groups["QATM_OutLine"].inputs[3].default_value = outline_mat
+        except:
+            bpy.data.node_groups["QATM_OutLine"].interface.items_tree[4].default_value = outline_mat # Blender 4.1+ Datapath
 
     # 获取是否关联选择同材质物体
     link_objects = scene.material_link_settings.link_objects_with_mat
@@ -364,7 +370,10 @@ def add_drivers_to_selected_objects():
         # 设置空物体的名字
         empty_object_face_forward.name = face_forward_name
 
-    bpy.data.node_groups["QATM_Drivers"].inputs[1].default_value = empty_object_face_forward
+    try:
+        bpy.data.node_groups["QATM_Drivers"].inputs[1].default_value = empty_object_face_forward
+    except:
+        bpy.data.node_groups["QATM_Drivers"].interface.items_tree[2].default_value = empty_object_face_forward # Blender 4.1+ Datapath
 
     # 获取是否关联选择同材质物体
     link_objects = scene.material_link_settings.link_objects_with_mat
