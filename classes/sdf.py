@@ -6,6 +6,33 @@
 
 import bpy
 from . import functions as func
+from bpy.props import StringProperty
+from bpy.types import Operator, UIList, PropertyGroup
+
+
+class QATM_SDFListItem(PropertyGroup):
+    name: StringProperty(
+           name="SDF",
+           description="An sdf list item",
+           default="SDF Arm") # type: ignore
+
+
+# SDF 列表
+class QATM_UL_SDFlist(UIList):
+
+    def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
+        custom_icon = 'WORDWRAP_ON' if item else 'WORDWRAP_OFF'
+        
+        if self.layout_type in {'DEFAULT', 'COMPACT'}:
+            
+            row = layout.row(align=True)
+            row.label(text=item.name, icon = 'ADD')
+            
+        elif self.layout_type in {'GRID'}:
+            layout.alignment = 'CENTER'
+            
+            row = layout.row(align=True)
+            row.label(text="", icon = 'ADD')
 
 
 # 装载SDF空物体

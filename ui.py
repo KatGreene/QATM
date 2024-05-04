@@ -29,6 +29,7 @@ class QATM_PT_custom_panel(bpy.types.Panel):
         row = layout.row()
         row.prop(mat_assoc_props, "collection")
         row = layout.row()
+        row.scale_y = 1.25
         row.operator("qatm.add_from_collection", icon='COLLECTION_NEW', text=pgettext("导入集合内的材质名"))
         box = layout.box()
         row = box.row()
@@ -104,7 +105,7 @@ class QATM_PT_custom_subpanel01(bpy.types.Panel):
 
         layout.label(text=pgettext("仅删除含关键词的多余材质"))
         row = layout.row()
-        row.scale_y = 1.5
+        row.scale_y = 1.25
         button = row.operator("qatm.delete_unused_materials_by_name", text=pgettext("清理多余材质"), icon="TRASH")
 
     def update_label(self):
@@ -142,7 +143,7 @@ class QATM_PT_custom_subpanel02(bpy.types.Panel):
         col.prop(outline_mat_props, "outline_material", text=pgettext("材质"))
         col.prop(outline_cam_props, "outline_camera", text=pgettext("摄像机"))
         row = layout.row()
-        row.scale_y = 1.5
+        row.scale_y = 1.25
         button = row.operator("qatm.add_outline_button", text=pgettext("添加描边"), icon="ADD")
         row.operator("qatm.delete_geometry_nodes_by_name", text=pgettext("删除描边"), icon="X")
 
@@ -177,12 +178,12 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
         col.prop_search(context.scene, "source_armature", bpy.data, "objects", text=pgettext("骨架"))
         col.prop(sdf_tool, "sdf_system_id", text=pgettext("SDF系统ID"))
         row = box.row(align=True)
-        row.scale_y = 1.5
+        row.scale_y = 1.25
         row.label(text="空物体:")
         row.operator("qatm.attach_empty_object", text=pgettext("装载"), icon="SORT_DESC")
         row.operator("qatm.detach_empty_object", text=pgettext("卸载"), icon="SORT_ASC")
         row = box.row(align=True)
-        row.scale_y = 1.5
+        row.scale_y = 1.25
         row.label(text="驱动器:")
         row.operator("qatm.add_drivers_button", text=pgettext("添加"), icon="ADD")
         row.operator("qatm.delete_drivers_nodes", text=pgettext("删除"), icon="X")
@@ -195,6 +196,9 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
         row = layout.row(align=True)   
         row.operator("qatm.smooth_normal_to_color", text="平滑法线", icon="LIGHT_HEMI")
         row.operator("qatm.copy_normal_to_color", text="复制法线", icon="LIGHT_AREA")  
+
+        row = layout.row()
+        row.template_list("QATM_UL_SDFlist", "The_List_02", scene, "sdf_list", scene, "sdf_list_index")
 
     def update_label(self):
         if bpy.app.translations.locale in bpy.app.translations.locales:
