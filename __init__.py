@@ -72,8 +72,7 @@ classes = (
     pr.QATM_OutlineCameraProperties,
     pr.QATM_OutlineMaterialProperties,
     pr.QATM_CustomIntProperties,
-    pr.QATM_MaterialSelectionSettings,
-    pr.QATM_MaterialLinkSettings,
+    pr.QATM_CustomBoolProperties,
 
     sdf.QATM_OT_AttachEmptyObject,
     sdf.QATM_OT_DetachEmptyObject,
@@ -94,14 +93,13 @@ properties = [
     ("outline_camera_props", bpy.props.PointerProperty(type=pr.QATM_OutlineCameraProperties)),
     ("outline_material_props", bpy.props.PointerProperty(type=pr.QATM_OutlineMaterialProperties)),
     ("keyword_list", CollectionProperty(type=co.QATM_KeywordItem)),
-    ("material_selection_settings", bpy.props.PointerProperty(type=pr.QATM_MaterialSelectionSettings)),
-    ("material_link_settings", bpy.props.PointerProperty(type=pr.QATM_MaterialLinkSettings)),
+    ("material_selection_settings", bpy.props.PointerProperty(type=pr.QATM_CustomBoolProperties)),
+    ("material_link_settings", bpy.props.PointerProperty(type=pr.QATM_CustomBoolProperties)),
+    ("sdf_auto_settings", bpy.props.PointerProperty(type=pr.QATM_CustomBoolProperties)),
     ("sdf_tool", bpy.props.PointerProperty(type=pr.QATM_CustomIntProperties)),
     ("keyword_list_index", bpy.props.IntProperty(name="自定义关键词", default=0, min=0)),
     ("suffix", bpy.props.StringProperty(name="Suffix", default="")),
     ("source_armature", bpy.props.StringProperty(name="选中骨架")),
-    # ("sdf_list", CollectionProperty(type=sdf.QATM_SDFListItem)),
-    # ("sdf_list_index", bpy.props.IntProperty(name="SDF源骨架", default=0, min=0)),
 ]
 
 # 构建存放英文翻译文件的文件夹路径

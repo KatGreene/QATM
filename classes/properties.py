@@ -51,17 +51,22 @@ class QATM_CustomIntProperties(bpy.types.PropertyGroup):
 
 
 ### 添加布尔属性
-class QATM_MaterialSelectionSettings(bpy.types.PropertyGroup):
+class QATM_CustomBoolProperties(bpy.types.PropertyGroup):
     select_objects_with_mat: bpy.props.BoolProperty(
         name="应用后选中源物体",
         description="QATM: 点击切换设置",
         default=False
     ) # type: ignore
 
-class QATM_MaterialLinkSettings(bpy.types.PropertyGroup):
     link_objects_with_mat: bpy.props.BoolProperty(
         name="应用前关联选择同材质物体",
         description="QATM: 点击切换设置",
         default=False
+    ) # type: ignore
+
+    auto_set_sdf_id: bpy.props.BoolProperty(
+        name="自动设置SDF系统ID",
+        description="QATM: 点击切换设置",
+        default=True
     ) # type: ignore
 
