@@ -65,21 +65,21 @@ classes = (
     ex.QATM_OT_AddResourcesOutline,
     ex.QATM_OT_AddResourcesAll,
     ex.QATM_OT_OpenManualPDF,
-    ex.QATM_OT_SmoothNormalToUV,
-    ex.QATM_OT_CopyNormalToUV,
+    # ex.QATM_OT_SmoothNormalToUV,
+    # ex.QATM_OT_CopyNormalToUV,
 
     pr.QATM_MaterialAssociationProperties,
     pr.QATM_OutlineCameraProperties,
     pr.QATM_OutlineMaterialProperties,
     pr.QATM_CustomIntProperties,
     pr.QATM_CustomBoolProperties,
+    # pr.QATM_CustomDictProperties,
 
     sdf.QATM_OT_AttachEmptyObject,
     sdf.QATM_OT_DetachEmptyObject,
     sdf.QATM_OT_AddNewSDF,
     sdf.QATM_OT_UnifySunlightRotation,
     sdf.QATM_OT_AddNormalFix,
-    sdf.QATM_UL_SDFlist,
 
     ui.QATM_PT_custom_panel,
     ui.QATM_PT_custom_panel02,
@@ -100,6 +100,7 @@ properties = [
     ("keyword_list_index", bpy.props.IntProperty(name="自定义关键词", default=0, min=0)),
     ("suffix", bpy.props.StringProperty(name="Suffix", default="")),
     ("source_armature", bpy.props.StringProperty(name="选中骨架")),
+    # ("sdf_id_dict", bpy.props.PointerProperty(type=pr.QATM_CustomDictProperties)),
 ]
 
 # 构建存放英文翻译文件的文件夹路径

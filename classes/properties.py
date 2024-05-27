@@ -70,3 +70,10 @@ class QATM_CustomBoolProperties(bpy.types.PropertyGroup):
         default=True
     ) # type: ignore
 
+
+# class QATM_CustomDictProperties(bpy.types.PropertyGroup):
+#     sdf_id_dict: bpy.props.CollectionProperty(
+#         name="SDF系统ID字典",
+#         description="SDF系统ID字典",
+#         type=bpy.types.PropertyGroup,
+#     ) # type: ignore

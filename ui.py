@@ -177,9 +177,9 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
         col = box.column()
         col.prop_search(context.scene, "source_armature", bpy.data, "objects", text=pgettext("骨架"))
         col.prop(sdf_tool, "sdf_system_id", text=pgettext("SDF系统ID"))
-        row = box.row()
-        row.prop(scene.sdf_auto_settings, "auto_set_sdf_id", text="",  icon="COPY_ID", toggle=True)
-        row.label(text="自动记录与切换系统ID")
+        # row = box.row()
+        # row.prop(scene.sdf_auto_settings, "auto_set_sdf_id", text="",  icon="COPY_ID", toggle=True)
+        # row.label(text="自动记录与切换系统ID")
         row = box.row(align=True)
         row.scale_y = 1.25
         row.label(text="空物体:")
@@ -196,9 +196,9 @@ class QATM_PT_custom_subpanel03(bpy.types.Panel):
         row.operator("qatm.unify_sunlight_rotation", text="", icon="LIGHT_SUN")
         row.operator("qatm.add_normal_fix", text="", icon="MOD_NORMALEDIT")     
 
-        row = layout.row(align=True)   
-        row.operator("qatm.smooth_normal_to_color", text="平滑法线", icon="LIGHT_HEMI")
-        row.operator("qatm.copy_normal_to_color", text="复制法线", icon="LIGHT_AREA")  
+        # row = layout.row(align=True)   
+        # row.operator("qatm.smooth_normal_to_color", text="平滑法线", icon="LIGHT_HEMI")
+        # row.operator("qatm.copy_normal_to_color", text="复制法线", icon="LIGHT_AREA")  
 
     def update_label(self):
         if bpy.app.translations.locale in bpy.app.translations.locales:

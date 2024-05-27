@@ -21,6 +21,13 @@ class QATM_OT_AttachEmptyObject(bpy.types.Operator):
         scene = context.scene
         armature_name = scene.source_armature
         sdf_tool = scene.sdf_tool
+
+        # sdf_id_dict = scene.sdf_id_dict
+        # if sdf_id_dict is {}:
+        #     sdf_system_id = sdf_tool.sdf_system_id
+        # else:
+        #     print("1145141919810++++++++++++++++")
+
         sdf_system_id = sdf_tool.sdf_system_id
 
         if sdf_system_id != 0:
