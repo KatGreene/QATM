@@ -25,7 +25,7 @@ from .classes import properties as pr
 from .classes import sdf
 
 from . import ui
-from . import matControl
+from .classes import matControl
 from . import translation as trans
 
 from bpy.props import CollectionProperty
