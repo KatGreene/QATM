@@ -27,7 +27,8 @@ class QATM_OT_AddResourcesOutline(bpy.types.Operator):
         # 执行这个功能前的检查
         if not collection_exists:
             func.load_resources(["Collection/QATM_OutLine"])
-
+            func.disable_outline_shadow()
+            
             def draw(self, context):
                 self.layout.label(text=pgettext("成功加载资源"), icon='SEQUENCE_COLOR_03')
                 self.layout.label(text="")
@@ -57,6 +58,7 @@ class QATM_OT_AddResourcesAll(bpy.types.Operator):
             func.load_resources(["Collection/QATM_Resources"])
             if not collection_exists_outline:
                 func.load_resources(["Collection/QATM_OutLine"])
+                func.disable_outline_shadow()
 
             def draw(self, context):
                 self.layout.label(text=pgettext("成功加载资源"), icon='SEQUENCE_COLOR_03')

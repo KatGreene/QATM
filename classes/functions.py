@@ -496,3 +496,17 @@ def smooth_normal_to_vertex():
 def set_shadow_mode():
     bpy.context.object.active_material.shadow_method = 'NONE'
 
+
+def disable_outline_shadow():
+    # 需要处理的材质名称列表
+    material_names = ["000OutLine", "000OutLine_Hair", "000OutLine_Skin", "000OutLine_Texture"]
+
+    # 遍历场景中的所有材质
+    for mat in bpy.data.materials:
+        if mat.name in material_names:
+             # 获取当前 Blender 版本
+            version = bpy.app.version
+            if version >= (4, 2, 0):
+                mat.use_backface_culling_shadow = True
+            else:
+                mat.shadow_method = 'NONE'
