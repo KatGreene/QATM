@@ -18,7 +18,7 @@ def load_resources(nodepaths):
     # 得到上级目录的路径
     parent_dir_path = os.path.abspath(os.path.join(dir_path, os.pardir))
     # 构造到上级目录中的resources文件夹的路径
-    blend_file_path = os.path.join(parent_dir_path, 'resources', 'resources.blend')
+    blend_file_path = os.path.join(parent_dir_path, 'resources', 'resources_neo.blend')
 
     for nodepath in nodepaths:
         # 提取文件夹和节点名称
@@ -249,7 +249,7 @@ def copy_material_to_selected_objects(mat_name):
                     obj.data.materials[0] = new_mat
 
                     # 按照节点树Y方向位置顺序排序
-                    sorted_images = [image for key, image in sorted(original_image_textures.items(), reverse=True)]
+                    sorted_images = [image for key, image in sorted(original_image_textures.items(), reverse=False)]
                     if sorted_images:  # 防止除数为0
                         # 用原图像替换新图像
                         i = 0
